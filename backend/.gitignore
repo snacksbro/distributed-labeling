@@ -1,0 +1,6 @@
+# Virtualenv Files
+__pycache__/
+bin/
+lib/
+uploads/
+pyvenv.cfg
