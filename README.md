@@ -1,7 +1,16 @@
+## Installing Dependencies
+### Frontend Dependencies
+1. Navigate to `frontend/` and run `npm install`
+
+### Backend Dependencies
+1. Navigate to `backend/` and run `virtualenv .`
+2. Enter your virtualenv with `source bin/activate`
+2. Run `pip install -r requirements.txt`
+
 ## Running
 ### Starting the Frontend
 1. Execute `npm run dev`
 
 ### Starting the Backend
-1. Start the virtualenv with `virtualenv .`
+1. Start the virtualenv with `source bin/activate`
 2. Execute `python3 app.py`
