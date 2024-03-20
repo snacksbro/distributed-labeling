@@ -1,3 +1,9 @@
+## Pre-Requisites
+* Node.js v21.5.x
+* NPM v10.2.x
+* Python v3.10.x
+* Virtualenv
+
 ## Installing Dependencies
 ### Frontend Dependencies
 1. Navigate to `frontend/` and run `npm install`
