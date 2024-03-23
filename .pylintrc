@@ -4,3 +4,6 @@
 [MESSAGES CONTROL]
 # Add any other configuration options as needed
 disable = E0401, W0603 # Ignoring import errors
+
+[FORMAT]
+max-line-length=100
