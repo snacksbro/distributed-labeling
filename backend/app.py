@@ -1,31 +1,5 @@
 """
-app.py
-============
-
-Description
------------
 This module handles both routes and file handling for the application
-
-Functions
----------
-- `function_name_1(arg1, arg2, ...):` Brief description of the first function.
-- `function_name_2(arg1, arg2, ...):` Brief description of the second function.
-- ...
-
-Classes
--------
-- `ClassName1:` Brief description of the first class.
-  - `method1(arg1, arg2, ...):` Brief description of the method.
-  - `method2(arg1, arg2, ...):` Brief description of another method.
-- `ClassName2:` Brief description of the second class.
-  - ...
-
-Todo
-----
-- Report upload progress to FE
-- Actually make pydicom work
-- Implement logger
-
 """
 
 import io
@@ -34,21 +8,33 @@ import json
 from flask import Flask, request, send_file
 from flask_cors import CORS
 from server.upload import check_filetype, handle_upload
+from dicom.DicomInfo import DicomInfo
+from label.label_manager import LabelManager
 
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024 * 1024  # 16GB lol
 CORS(app)
 app.config["CORS_HEADERS"] = "Access-Control-Allow-Origin"
+
+
+class Viewer:
+    def __init__(self, dicom_path):
+        self.dicom = DicomInfo(dicom_path)
+        self.labels = LabelManager(self.dicom.slide_count)
+
+
 dicom_object = None
+label_object = None
 
 
 @app.route("/upload_file", methods=["POST"])
 def upload_file():
     global dicom_object
+    global label_object
 
     status_message = {"success": False, "message": "", "slice_count": 0}
-    dicom_object = handle_upload(request)
+    dicom_object, label_object = handle_upload(request)
     if dicom_object is not None:
         status_message["success"] = True
         status_message["message"] = "File upload complete!"

@@ -1,5 +1,6 @@
 import magic
 from dicom.DicomInfo import DicomInfo
+from label.label_manager import LabelManager
 
 SUPPORTED_FILETYPES = {"application/dicom"}
 
@@ -60,4 +61,4 @@ def handle_upload(request):
         status_message["message"] = f"File '{file.filename}' isn't supported!"
         return None
     # return json.dumps(status_message)`
-    return dicom_object
+    return (dicom_object, LabelManager(dicom_object.slide_count))
