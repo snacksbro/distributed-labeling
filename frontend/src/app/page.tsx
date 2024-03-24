@@ -5,6 +5,7 @@ import UploadButton from "./components/upload";
 import Controls from "./components/controls";
 import Viewer from "./components/viewer";
 import Keybinds from "./components/keybinds";
+import LabelWindow from "./components/label_window";
 import axios from "axios";
 
 export default function Homer() {
@@ -12,11 +13,16 @@ export default function Homer() {
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
   const [polygonPoints, setPolygonPoints] = useState([[]]);
+  const [labels, setLabels] = useState([[]]);
 
   const updateBrightness = (value) => {
     setBrightness(value);
     console.log("Brightness updated to " + value.toString());
   };
+
+  // const setLabels = (value) => {
+  //   console.log("SET" + value);
+  // };
 
   const updateImageIndex = (value) => {
     if (value < 0 || value > sliceCount) return false;
@@ -61,6 +67,7 @@ export default function Homer() {
       </div>
       <Viewer imageIndex={imageIndex} polygonPoints={polygonPoints} />
       <Keybinds imageIndex={imageIndex} updateImageIndex={updateImageIndex} />
+      <LabelWindow imageIndex={imageIndex} labels={labels} />
     </div>
   );
 }

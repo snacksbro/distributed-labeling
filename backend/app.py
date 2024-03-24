@@ -24,6 +24,7 @@ class Viewer:
         self.labels = LabelManager(self.dicom.slide_count)
 
 
+# What if upload just changed the source?
 dicom_object = None
 label_object = None
 
@@ -35,6 +36,10 @@ def upload_file():
 
     status_message = {"success": False, "message": "", "slice_count": 0}
     dicom_object, label_object = handle_upload(request)
+    label_object.create_label("test label")
+    label_object.create_label("tester label", "C0FFEE")
+    label_object.create_label("testest label")
+    # label_object.set_labels(0, [
     if dicom_object is not None:
         status_message["success"] = True
         status_message["message"] = "File upload complete!"
@@ -60,7 +65,10 @@ def get_slice_info():
     # Since segment data is injected at arbitrary indexes, we have to
     # catch errors rather than checking length
     try:
-        slice_info["segments"] = dicom_object.get_segment(
+        # slice_info["segments"] = dicom_object.get_segment(
+        #     int(request.args.get("index"))
+        # )
+        slice_info["segments"] = label_object.get_slice_labels(
             int(request.args.get("index"))
         )
     except IndexError:
@@ -80,9 +88,28 @@ def send_segmentation():
     data = request.get_json()
     segments = data.get("segments")
     index = data.get("index")
-    dicom_object.set_segment(index, segments)
+    # dicom_object.set_segment(index, segments)
+    label_object.set_labels(index, segments)
 
     return json.dumps({"success": True})
+
+
+@app.route("/get_labels", methods=["GET"])
+def get_labels():
+    """get the label"""
+    index = int(request.args.get("index"))
+    print(f"SENDING LABELS {label_object.get_slice_labels(index)}")
+
+    return json.dumps({"labels": label_object.get_slice_labels(index)})
+
+
+@app.route("/get_label_list", methods=["GET"])
+def get_label_list():
+    # unhashed_labels = []
+    # for _, value in label_object.labels:
+    #     unhashed_labels.append(value)
+    # return json.dumps({"label_list": unhashed_labels})
+    return json.dumps({"label_list": list(label_object.labels.values())})
 
 
 @app.route("/get_slice", methods=["GET"])
