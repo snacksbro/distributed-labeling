@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Label from "./label";
 
 // .get(`http://127.0.0.1:3001/get_labels?index=${imageIndex}`)
 export default function LabelWindow({ imageIndex, labels }) {
@@ -11,7 +12,7 @@ export default function LabelWindow({ imageIndex, labels }) {
       // console.log("GOT " + labels[0]);
       console.log(labels);
       for (let i = 0; i < labels.length; i++) {
-        newLabelElems.push(<li key={i}>{labels[i].name}</li>);
+        newLabelElems.push(<Label labelIndex={i} labelContent={labels[i]} />);
       }
       console.log(labelElems);
       setLabelElems(newLabelElems);
