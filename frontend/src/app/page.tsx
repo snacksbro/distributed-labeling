@@ -13,7 +13,8 @@ export default function Homer() {
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
   const [polygonPoints, setPolygonPoints] = useState([[]]);
-  const [labels, setLabels] = useState([[]]);
+  const [labels, setLabels] = useState([[]]); // Remove this? Since it's now all local
+  const [currentLabel, setCurrentLabel] = useState("");
 
   const updateBrightness = (value) => {
     setBrightness(value);
@@ -23,6 +24,12 @@ export default function Homer() {
   // const setLabels = (value) => {
   //   console.log("SET" + value);
   // };
+
+  // Is this needed at all if I just pass setCurrentLabel to the labelmanager?
+  const updateCurrentLabel = (value) => {
+    setCurrentLabel(value);
+    console.log("Label updated to " + value);
+  };
 
   const updateImageIndex = (value) => {
     if (value < 0 || value > sliceCount) return false;
@@ -67,7 +74,12 @@ export default function Homer() {
       </div>
       <Viewer imageIndex={imageIndex} polygonPoints={polygonPoints} />
       <Keybinds imageIndex={imageIndex} updateImageIndex={updateImageIndex} />
-      <LabelWindow imageIndex={imageIndex} labels={labels} />
+      <LabelWindow
+        imageIndex={imageIndex}
+        labels={labels}
+        currentLabel={currentLabel}
+        setCurrentLabel={updateCurrentLabel}
+      />
     </div>
   );
 }

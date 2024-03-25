@@ -3,22 +3,35 @@ import axios from "axios";
 import Label from "./label";
 
 // .get(`http://127.0.0.1:3001/get_labels?index=${imageIndex}`)
-export default function LabelWindow({ imageIndex, labels }) {
+export default function LabelWindow({
+  imageIndex,
+  labels,
+  currentLabel,
+  setCurrentLabel,
+}) {
   const [labelElems, setLabelElems] = useState([]);
   useEffect(() => {
     axios.get(`http://127.0.0.1:3001/get_label_list`).then((res) => {
       const labels = res.data["label_list"];
       const newLabelElems = [];
-      // console.log("GOT " + labels[0]);
-      console.log(labels);
+
+      // Default label behavior
+      if (currentLabel == "") setCurrentLabel(labels[0].name);
+
+      // Render each
       for (let i = 0; i < labels.length; i++) {
-        newLabelElems.push(<Label labelIndex={i} labelContent={labels[i]} />);
+        newLabelElems.push(
+          <Label
+            selectedLabel={currentLabel}
+            labelIndex={i}
+            labelContent={labels[i]}
+          />,
+        );
       }
       console.log(labelElems);
       setLabelElems(newLabelElems);
     });
   }, []);
-  // USE STATE BRO
   return (
     <div>
       <ul>{labelElems}</ul>
