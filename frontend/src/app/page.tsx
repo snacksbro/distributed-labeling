@@ -29,18 +29,12 @@ export default function Homer() {
     setLabels(value);
   };
 
-  const nextLabel = () => {
+  const moveLabel = (direction) => {
     let i;
     for (i = 0; i < labels.length; i++)
       if (labels[i].name == currentLabel) break;
-    updateCurrentLabel(labels[i + 1].name);
-  };
-
-  const prevLabel = () => {
-    let i;
-    for (i = 0; i < labels.length; i++)
-      if (labels[i].name == currentLabel) break;
-    updateCurrentLabel(labels[i - 1].name);
+    if (i + direction != -1 && i + direction != labels.length)
+      updateCurrentLabel(labels[i + direction].name);
   };
 
   // Is this needed at all if I just pass setCurrentLabel to the labelmanager?
@@ -92,8 +86,7 @@ export default function Homer() {
       </div>
       <Viewer imageIndex={imageIndex} polygonPoints={polygonPoints} />
       <Keybinds
-        nextLabel={nextLabel}
-        prevLabel={prevLabel}
+        moveLabel={moveLabel}
         imageIndex={imageIndex}
         updateImageIndex={updateImageIndex}
       />

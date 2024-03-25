@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 
-export default function Keybinds({
-  nextLabel,
-  prevLabel,
-  imageIndex,
-  updateImageIndex,
-}) {
+export default function Keybinds({ moveLabel, imageIndex, updateImageIndex }) {
   const handleKeyPress = (event) => {
     switch (event.key) {
       case "ArrowRight":
@@ -15,10 +10,10 @@ export default function Keybinds({
         updateImageIndex(imageIndex - 1);
         break;
       case "ArrowDown":
-        nextLabel();
+        moveLabel(1);
         break;
       case "ArrowUp":
-        prevLabel();
+        moveLabel(-1);
         break;
     }
   };
