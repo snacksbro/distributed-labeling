@@ -6,35 +6,33 @@ import Label from "./label";
 export default function LabelWindow({
   imageIndex,
   labels,
+  updateLabels,
   currentLabel,
   setCurrentLabel,
 }) {
   const [labelElems, setLabelElems] = useState([]);
   useEffect(() => {
     axios.get(`http://127.0.0.1:3001/get_label_list`).then((res) => {
-      const labels = res.data["label_list"];
-      const newLabelElems = [];
+      const retrieved_labels = res.data["label_list"];
 
       // Default label behavior
-      if (currentLabel == "") setCurrentLabel(labels[0].name);
+      if (currentLabel == "") setCurrentLabel(retrieved_labels[0].name);
 
-      // Render each
-      for (let i = 0; i < labels.length; i++) {
-        newLabelElems.push(
-          <Label
-            selectedLabel={currentLabel}
-            labelIndex={i}
-            labelContent={labels[i]}
-          />,
-        );
-      }
-      console.log(labelElems);
-      setLabelElems(newLabelElems);
+      updateLabels(retrieved_labels);
     });
   }, []);
   return (
     <div>
-      <ul>{labelElems}</ul>
+      <ul>
+        {labels.map((label, index) => (
+          <Label
+            key={index}
+            selectedLabel={currentLabel}
+            labelIndex={index}
+            labelContent={label}
+          />
+        ))}
+      </ul>
     </div>
   );
 }

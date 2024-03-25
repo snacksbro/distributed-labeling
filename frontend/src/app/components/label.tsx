@@ -5,9 +5,7 @@ export default function Label({ selectedLabel, labelIndex, labelContent }) {
     <li
       key={labelIndex}
       style={
-        selectedLabel == labelContent.name
-          ? { border: "1px solid black" }
-          : { border: "1px solid blue" }
+        selectedLabel == labelContent.name ? { border: "1px solid blue" } : {}
       }
     >
       <span style={{ color: "#" + labelContent.color, content: "" }}>

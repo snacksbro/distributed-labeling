@@ -25,6 +25,10 @@ export default function Homer() {
   //   console.log("SET" + value);
   // };
 
+  const updateLabels = (value) => {
+    setLabels(value);
+  };
+
   // Is this needed at all if I just pass setCurrentLabel to the labelmanager?
   const updateCurrentLabel = (value) => {
     setCurrentLabel(value);
@@ -77,6 +81,7 @@ export default function Homer() {
       <LabelWindow
         imageIndex={imageIndex}
         labels={labels}
+        updateLabels={updateLabels}
         currentLabel={currentLabel}
         setCurrentLabel={updateCurrentLabel}
       />
