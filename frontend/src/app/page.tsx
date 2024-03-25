@@ -29,6 +29,20 @@ export default function Homer() {
     setLabels(value);
   };
 
+  const nextLabel = () => {
+    let i;
+    for (i = 0; i < labels.length; i++)
+      if (labels[i].name == currentLabel) break;
+    updateCurrentLabel(labels[i + 1].name);
+  };
+
+  const prevLabel = () => {
+    let i;
+    for (i = 0; i < labels.length; i++)
+      if (labels[i].name == currentLabel) break;
+    updateCurrentLabel(labels[i - 1].name);
+  };
+
   // Is this needed at all if I just pass setCurrentLabel to the labelmanager?
   const updateCurrentLabel = (value) => {
     setCurrentLabel(value);
@@ -77,7 +91,12 @@ export default function Homer() {
         <p>You are brightness is {brightness}</p>
       </div>
       <Viewer imageIndex={imageIndex} polygonPoints={polygonPoints} />
-      <Keybinds imageIndex={imageIndex} updateImageIndex={updateImageIndex} />
+      <Keybinds
+        nextLabel={nextLabel}
+        prevLabel={prevLabel}
+        imageIndex={imageIndex}
+        updateImageIndex={updateImageIndex}
+      />
       <LabelWindow
         imageIndex={imageIndex}
         labels={labels}

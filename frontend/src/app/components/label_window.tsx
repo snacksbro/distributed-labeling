@@ -10,7 +10,6 @@ export default function LabelWindow({
   currentLabel,
   setCurrentLabel,
 }) {
-  const [labelElems, setLabelElems] = useState([]);
   useEffect(() => {
     axios.get(`http://127.0.0.1:3001/get_label_list`).then((res) => {
       const retrieved_labels = res.data["label_list"];
