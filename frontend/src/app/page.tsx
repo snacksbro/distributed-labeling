@@ -12,7 +12,9 @@ export default function Homer() {
   const [brightness, setBrightness] = useState(0);
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
-  const [polygonPoints, setPolygonPoints] = useState([[]]);
+  const [polygonPoints, setPolygonPoints] = useState([
+    { name: "", points: [] },
+  ]);
   const [labels, setLabels] = useState([[]]); // Remove this? Since it's now all local
   const [currentLabel, setCurrentLabel] = useState("");
 

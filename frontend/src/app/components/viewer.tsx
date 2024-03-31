@@ -69,17 +69,18 @@ export default function Viewer({
     const handleClick = (event) => {
       // This is taken to get the relative location of client clicks
       const canvasRect = canvas.getBoundingClientRect();
-      polygonPoints[squareIndex].push([
+      polygonPoints[squareIndex].name = currentLabel;
+      polygonPoints[squareIndex].points.push([
         event.x - canvasRect.left,
         event.y - canvasRect.top,
       ]);
       // console.log(squarePoints);
 
       // If the shape is "complete" i.e. has 2 points
-      if (polygonPoints[squareIndex].length >= 2) {
-        renderPolygon(polygonPoints[squareIndex]);
+      if (polygonPoints[squareIndex].points.length >= 2) {
+        renderPolygon(polygonPoints[squareIndex].points);
         squareIndex++;
-        polygonPoints.push([]);
+        polygonPoints.push({ name: "", points: [] });
       }
     };
 
