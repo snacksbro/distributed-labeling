@@ -16,6 +16,8 @@ export default function Keybinds({ moveLabel, imageIndex, updateImageIndex }) {
         moveLabel(-1);
         break;
     }
+    // Disable the ability to scroll the page with the arrowkeys
+    if (event.key.startsWith("Arrow")) event.preventDefault();
   };
 
   // On mount, intercept keypresses
