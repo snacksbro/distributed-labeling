@@ -26,6 +26,7 @@ export default function Homer() {
   // };
 
   const updateLabels = (value) => {
+    console.log("LABELS HAVE BEEN UPDATED TO " + value);
     setLabels(value);
   };
 
@@ -33,8 +34,10 @@ export default function Homer() {
     let i;
     for (i = 0; i < labels.length; i++)
       if (labels[i].name == currentLabel) break;
-    if (i + direction != -1 && i + direction != labels.length)
+    if (i + direction != -1 && i + direction != labels.length) {
       updateCurrentLabel(labels[i + direction].name);
+      console.log("CURRENT LABEL UPDATED TO " + labels[i + direction].name);
+    }
   };
 
   // Is this needed at all if I just pass setCurrentLabel to the labelmanager?
@@ -84,7 +87,12 @@ export default function Homer() {
         <p>Hello vorld!</p>
         <p>You are brightness is {brightness}</p>
       </div>
-      <Viewer imageIndex={imageIndex} polygonPoints={polygonPoints} />
+      <Viewer
+        currentLabel={currentLabel}
+        labels={labels}
+        imageIndex={imageIndex}
+        polygonPoints={polygonPoints}
+      />
       <Keybinds
         moveLabel={moveLabel}
         imageIndex={imageIndex}

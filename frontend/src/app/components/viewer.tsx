@@ -1,7 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import axios from "axios";
 
-export default function Viewer({ imageIndex, polygonPoints }) {
+export default function Viewer({
+  labels,
+  currentLabel,
+  imageIndex,
+  polygonPoints,
+}) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -30,12 +35,27 @@ export default function Viewer({ imageIndex, polygonPoints }) {
         });
     };
 
+    const getCurrentColor = () => {
+      let i;
+      for (i = 0; i < labels.length; i++) {
+        console.log("LABEL LEN IS " + labels.length);
+        console.log("labels are " + labels);
+        if (labels[i].name == currentLabel) {
+          console.log("GOT RIGHT LABEL " + labels[i].name + currentLabel);
+          return labels[i].color;
+          // Must be an issue with propgration of currentLabel
+        } else console.log("TOTALYL NOT " + labels[i].name + currentLabel);
+      }
+    };
+
     const renderPolygon = (points) => {
       context.beginPath();
       const rectWidth = points[1][0] - points[0][0];
       const rectHeight = points[1][1] - points[0][1];
+      // const color = labels[currentLabel].color;
+      console.log("GOT COLOR " + getCurrentColor());
       context.rect(points[0][0], points[0][1], rectWidth, rectHeight);
-      context.strokeStyle = "blue";
+      context.strokeStyle = "#" + getCurrentColor();
       context.lineWidth = 2;
       context.stroke();
     };

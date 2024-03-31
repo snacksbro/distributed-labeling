@@ -11,7 +11,7 @@ export default function Label({ selectedLabel, labelIndex, labelContent }) {
       <span style={{ color: "#" + labelContent.color, content: "" }}>
         {"\x15"}
       </span>
-      {labelContent.name + " " + selectedLabel}
+      {labelContent.name}
     </li>
   );
 }
