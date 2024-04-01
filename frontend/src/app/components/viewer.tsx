@@ -20,6 +20,7 @@ export default function Viewer({
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
+    let squareIndex = 0;
     const sliceImage = new Image();
     sliceImage.src = `http://127.0.0.1:3001/get_slice?index=${imageIndex}`;
     sliceImage.onload = () => {
@@ -37,15 +38,16 @@ export default function Viewer({
           // Only render if there's segments to draw
           if (res.data["segments"] != null && res.data["segments"].length > 0) {
             for (let i = 0; i < res.data["segments"].length; i++) {
-              if (res.data["segments"][i].length > 0) {
-                renderPolygon(
-                  res.data["segments"][i].points,
-                  res.data["segments"][i].name,
-                );
-              }
+              console.log("GOT A SEGMENT FROM SERVER");
+              renderPolygon(
+                res.data["segments"][i].points,
+                res.data["segments"][i].name,
+              );
+              polygonPoints.push(res.data["segments"][i]);
             }
           } else {
             // Init
+            console.log("Init happened since we got no labels");
             polygonPoints[0] = { name: "", points: [] };
           }
         });
@@ -70,12 +72,6 @@ export default function Viewer({
       context.lineWidth = 2;
       context.stroke();
     };
-
-    // Array of shapes
-    // Which each is an array of points
-    // Which each point is an array of x/y
-    // const squarePoints = [[]]; // Will later be changed to load from server
-    let squareIndex = 0;
 
     const handleClick = (event) => {
       // This is taken to get the relative location of client clicks
