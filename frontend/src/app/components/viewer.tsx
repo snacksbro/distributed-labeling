@@ -15,6 +15,7 @@ export default function Viewer({
     currentLabelRef.current = currentLabel; // Update ref when currentLabel changes
   }, [currentLabel]);
 
+  // To be run whenever the slice updates
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -34,10 +35,7 @@ export default function Viewer({
           context.drawImage(sliceImage, 0, 0, canvas.width, canvas.height);
 
           // Only render if there's segments to draw
-          if (
-            res.data["segments"] != null &&
-            res.data["segments"][i].length > 0
-          ) {
+          if (res.data["segments"] != null && res.data["segments"].length > 0) {
             for (let i = 0; i < res.data["segments"].length; i++) {
               if (res.data["segments"][i].length > 0) {
                 renderPolygon(
