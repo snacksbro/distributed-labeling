@@ -8,6 +8,12 @@ export default function Viewer({
   polygonPoints,
 }) {
   const canvasRef = useRef(null);
+  const currentLabelRef = useRef(currentLabel);
+
+  // Yes this is a massive bit of ducttape over geniunely bad code, but I'm carrying this project and don't care anymore.
+  useEffect(() => {
+    currentLabelRef.current = currentLabel; // Update ref when currentLabel changes
+  }, [currentLabel]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -83,7 +89,7 @@ export default function Viewer({
     const handleClick = (event) => {
       // This is taken to get the relative location of client clicks
       const canvasRect = canvas.getBoundingClientRect();
-      polygonPoints[squareIndex].name = currentLabel;
+      polygonPoints[squareIndex].name = currentLabelRef.current;
       polygonPoints[squareIndex].points.push([
         event.x - canvasRect.left,
         event.y - canvasRect.top,
