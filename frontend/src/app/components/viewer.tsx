@@ -28,9 +28,6 @@ export default function Viewer({
         .then((res) => {
           canvas.width = res.data["width"];
           canvas.height = res.data["height"];
-          console.log(
-            "SEGS ARE " + JSON.stringify(res.data["segments"], null, 4),
-          );
 
           // Remove old labels and draw the slide image
           context.clearRect(0, 0, canvas.width, canvas.height);
@@ -60,10 +57,8 @@ export default function Viewer({
       let i;
       for (i = 0; i < labels.length; i++) {
         if (labels[i].name == labelName) {
-          console.log("GOT RIGHT LABEL " + labels[i].name + labelName);
           return labels[i].color;
-          // Must be an issue with propgration of currentLabel
-        } else console.log("TOTALYL NOT " + labels[i].name + labelName);
+        }
       }
     };
 
@@ -71,8 +66,6 @@ export default function Viewer({
       context.beginPath();
       const rectWidth = points[1][0] - points[0][0];
       const rectHeight = points[1][1] - points[0][1];
-      // const color = labels[currentLabel].color;
-      console.log("GOT COLOR " + getCurrentColor(labelName));
       context.rect(points[0][0], points[0][1], rectWidth, rectHeight);
       const color = getCurrentColor(labelName);
       context.strokeStyle = "#" + color;
@@ -94,11 +87,9 @@ export default function Viewer({
         event.x - canvasRect.left,
         event.y - canvasRect.top,
       ]);
-      // console.log(squarePoints);
 
       // If the shape is "complete" i.e. has 2 points
       if (polygonPoints[squareIndex].points.length >= 2) {
-        console.log("New poly! Drawing " + polygonPoints[squareIndex].name);
         renderPolygon(
           polygonPoints[squareIndex].points,
           polygonPoints[squareIndex].name,
