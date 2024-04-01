@@ -22,40 +22,54 @@ export default function Viewer({
         .then((res) => {
           canvas.width = res.data["width"];
           canvas.height = res.data["height"];
-          console.log(res.data["segments"]);
+          console.log(
+            "SEGS ARE " + JSON.stringify(res.data["segments"], null, 4),
+          );
+
+          // Remove old labels and draw the slide image
           context.clearRect(0, 0, canvas.width, canvas.height);
           context.drawImage(sliceImage, 0, 0, canvas.width, canvas.height);
-          if (res.data["segments"] != null) {
+
+          // Only render if there's segments to draw
+          if (
+            res.data["segments"] != null &&
+            res.data["segments"][i].length > 0
+          ) {
             for (let i = 0; i < res.data["segments"].length; i++) {
               if (res.data["segments"][i].length > 0) {
-                renderPolygon(res.data["segments"][i]);
+                renderPolygon(
+                  res.data["segments"][i].points,
+                  res.data["segments"][i].name,
+                );
               }
             }
+          } else {
+            // Init
+            polygonPoints[0] = { name: "", points: [] };
           }
         });
     };
 
-    const getCurrentColor = () => {
+    const getCurrentColor = (labelName = undefined) => {
       let i;
       for (i = 0; i < labels.length; i++) {
-        console.log("LABEL LEN IS " + labels.length);
-        console.log("labels are " + labels);
-        if (labels[i].name == currentLabel) {
-          console.log("GOT RIGHT LABEL " + labels[i].name + currentLabel);
+        if (labels[i].name == labelName) {
+          console.log("GOT RIGHT LABEL " + labels[i].name + labelName);
           return labels[i].color;
           // Must be an issue with propgration of currentLabel
-        } else console.log("TOTALYL NOT " + labels[i].name + currentLabel);
+        } else console.log("TOTALYL NOT " + labels[i].name + labelName);
       }
     };
 
-    const renderPolygon = (points) => {
+    const renderPolygon = (points, labelName) => {
       context.beginPath();
       const rectWidth = points[1][0] - points[0][0];
       const rectHeight = points[1][1] - points[0][1];
       // const color = labels[currentLabel].color;
-      console.log("GOT COLOR " + getCurrentColor());
+      console.log("GOT COLOR " + getCurrentColor(labelName));
       context.rect(points[0][0], points[0][1], rectWidth, rectHeight);
-      context.strokeStyle = "#" + getCurrentColor();
+      const color = getCurrentColor(labelName);
+      context.strokeStyle = "#" + color;
       context.lineWidth = 2;
       context.stroke();
     };
@@ -78,7 +92,11 @@ export default function Viewer({
 
       // If the shape is "complete" i.e. has 2 points
       if (polygonPoints[squareIndex].points.length >= 2) {
-        renderPolygon(polygonPoints[squareIndex].points);
+        console.log("New poly! Drawing " + polygonPoints[squareIndex].name);
+        renderPolygon(
+          polygonPoints[squareIndex].points,
+          polygonPoints[squareIndex].name,
+        );
         squareIndex++;
         polygonPoints.push({ name: "", points: [] });
       }
