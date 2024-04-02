@@ -43,6 +43,7 @@ export default function Viewer({
                 res.data["segments"][i].points,
                 res.data["segments"][i].name,
               );
+              squareIndex++;
               // polygonPoints.push(res.data["segments"][i]);
             }
             polygonPoints = res.data["segments"];
@@ -88,7 +89,7 @@ export default function Viewer({
           points: [],
         };
       }
-      polygonPoints[squareIndex].name = currentLabelRef.current;
+      // polygonPoints[squareIndex].name = currentLabelRef.current;
       polygonPoints[squareIndex].points.push([
         event.x - canvasRect.left,
         event.y - canvasRect.top,
@@ -101,6 +102,9 @@ export default function Viewer({
           polygonPoints[squareIndex].name,
         );
         squareIndex++;
+        console.log(
+          "Labels updated! They are " + JSON.stringify(polygonPoints, null, 4),
+        );
         // polygonPoints.push({ name: "", points: [] });
       }
     };
@@ -110,6 +114,16 @@ export default function Viewer({
     // Remove eventlistener on unmount
     return () => {
       canvas.removeEventListener("click", handleClick);
+      axios.post(
+        "http://127.0.0.1:3001/send_segmentation",
+        { segments: polygonPoints, index: imageIndex },
+        // { index: imageIndex },
+        {
+          // headers: {
+          //   "Content-Type": "multipart/form-data",
+          // },
+        },
+      );
     };
   }, [imageIndex]);
   return (

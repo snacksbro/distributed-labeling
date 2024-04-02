@@ -50,15 +50,8 @@ export default function Homer() {
 
   const updateImageIndex = (value) => {
     if (value < 0 || value > sliceCount) return false;
-    axios.post(
-      "http://127.0.0.1:3001/send_segmentation",
-      { segments: polygonPoints, index: imageIndex },
-      // { index: imageIndex },
-      {
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
-      },
+    console.log(
+      "Labels sent off! They are " + JSON.stringify(polygonPoints, null, 4),
     );
 
     setPolygonPoints([[]]);
