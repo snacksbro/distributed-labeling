@@ -136,9 +136,10 @@ class LabelManager:
         label_data (dict):
             The label data for the slice
         """
-        print(f"Setting labels, their length is {len(label_data)}")
         # If there's new labels
         if len(label_data) > 1:
             self.dicom_labels[slice_location] = label_data
-        else:
-            self.dicom_labels[slice_location] = []
+            print(f"Labels set! They are {label_data}")
+        # else:
+        #     self.dicom_labels[slice_location] = []
+        #     print("FOOP")

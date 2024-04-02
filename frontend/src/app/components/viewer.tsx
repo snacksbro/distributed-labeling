@@ -43,8 +43,13 @@ export default function Viewer({
                 res.data["segments"][i].points,
                 res.data["segments"][i].name,
               );
-              polygonPoints.push(res.data["segments"][i]);
+              // polygonPoints.push(res.data["segments"][i]);
             }
+            polygonPoints = res.data["segments"];
+            console.log(
+              "Labels recieved! They are " +
+                JSON.stringify(polygonPoints, null, 4),
+            );
           } else {
             // Init
             console.log("Init happened since we got no labels");
@@ -76,6 +81,13 @@ export default function Viewer({
     const handleClick = (event) => {
       // This is taken to get the relative location of client clicks
       const canvasRect = canvas.getBoundingClientRect();
+
+      if (polygonPoints.length <= squareIndex) {
+        polygonPoints[squareIndex] = {
+          name: currentLabelRef.current,
+          points: [],
+        };
+      }
       polygonPoints[squareIndex].name = currentLabelRef.current;
       polygonPoints[squareIndex].points.push([
         event.x - canvasRect.left,
@@ -89,7 +101,7 @@ export default function Viewer({
           polygonPoints[squareIndex].name,
         );
         squareIndex++;
-        polygonPoints.push({ name: "", points: [] });
+        // polygonPoints.push({ name: "", points: [] });
       }
     };
 
