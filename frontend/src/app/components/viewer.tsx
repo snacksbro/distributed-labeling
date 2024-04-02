@@ -38,22 +38,15 @@ export default function Viewer({
           // Only render if there's segments to draw
           if (res.data["segments"] != null && res.data["segments"].length > 0) {
             for (let i = 0; i < res.data["segments"].length; i++) {
-              console.log("GOT A SEGMENT FROM SERVER");
               renderPolygon(
                 res.data["segments"][i].points,
                 res.data["segments"][i].name,
               );
               squareIndex++;
-              // polygonPoints.push(res.data["segments"][i]);
             }
             polygonPoints = res.data["segments"];
-            console.log(
-              "Labels recieved! They are " +
-                JSON.stringify(polygonPoints, null, 4),
-            );
           } else {
             // Init
-            console.log("Init happened since we got no labels");
             polygonPoints[0] = { name: "", points: [] };
           }
         });
@@ -102,10 +95,6 @@ export default function Viewer({
           polygonPoints[squareIndex].name,
         );
         squareIndex++;
-        console.log(
-          "Labels updated! They are " + JSON.stringify(polygonPoints, null, 4),
-        );
-        // polygonPoints.push({ name: "", points: [] });
       }
     };
 
@@ -114,16 +103,10 @@ export default function Viewer({
     // Remove eventlistener on unmount
     return () => {
       canvas.removeEventListener("click", handleClick);
-      axios.post(
-        "http://127.0.0.1:3001/send_segmentation",
-        { segments: polygonPoints, index: imageIndex },
-        // { index: imageIndex },
-        {
-          // headers: {
-          //   "Content-Type": "multipart/form-data",
-          // },
-        },
-      );
+      axios.post("http://127.0.0.1:3001/send_segmentation", {
+        segments: polygonPoints,
+        index: imageIndex,
+      });
     };
   }, [imageIndex]);
   return (

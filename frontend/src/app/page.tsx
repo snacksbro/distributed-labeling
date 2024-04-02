@@ -28,7 +28,6 @@ export default function Homer() {
   // };
 
   const updateLabels = (value) => {
-    console.log("LABELS HAVE BEEN UPDATED TO " + value);
     setLabels(value);
   };
 
