@@ -52,6 +52,24 @@ export default function Viewer({
         });
     };
 
+    const drawLabels = () => {
+      squareIndex = 0;
+
+      // Remove old labels and draw the slide image
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(sliceImage, 0, 0, canvas.width, canvas.height);
+
+      if (polygonPoints != null && polygonPoints.length > 0) {
+        for (let i = 0; i < polygonPoints.length; i++) {
+          if (typeof polygonPoints[i] === "undefined") continue;
+          renderPolygon(polygonPoints[i].points, polygonPoints[i].name);
+          squareIndex++;
+        }
+      } else {
+        // polygonPoints[0] = { name: "", points: [] };
+      }
+    };
+
     const getCurrentColor = (labelName = undefined) => {
       let i;
       for (i = 0; i < labels.length; i++) {
@@ -115,9 +133,12 @@ export default function Viewer({
 
       console.log("Polygon len is " + polygonPoints.length);
       console.log(`Event data is ${mouseX} ${mouseY}`);
+      // Can't use .length due to a Javascript bug: https://stackoverflow.com/questions/31065075/array-length-gives-incorrect-length
+      // My only "solution" is to write an actual splice function to remake the array
       for (let i = 0; i < polygonPoints.length; i++) {
+        if (typeof polygonPoints[i] === "undefined") continue;
         console.log(
-          `Box data is: ${polygonPoints[i].points[0][0]} ${polygonPoints[i].points[1][0]} ${polygonPoints[i].points[0][1]} ${polygonPoints[i].points[1][1]}`,
+          `${i} Box data is: ${polygonPoints[i].points[0][0]} ${polygonPoints[i].points[1][0]} ${polygonPoints[i].points[0][1]} ${polygonPoints[i].points[1][1]}`,
         );
         if (
           mouseX > polygonPoints[i].points[0][0] &&
@@ -127,6 +148,8 @@ export default function Viewer({
         ) {
           console.log("It happened!");
           polygonPoints.splice(i, 1);
+          drawLabels();
+          return;
         }
       }
     };
