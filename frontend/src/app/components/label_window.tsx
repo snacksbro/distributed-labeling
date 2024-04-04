@@ -32,6 +32,18 @@ export default function LabelWindow({
           />
         ))}
       </ul>
+      <div>
+        <input
+          class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
+          type="button"
+          value="Add Label"
+        />
+        <input
+          class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
+          type="button"
+          value="Delete Label"
+        />
+      </div>
     </div>
   );
 }
