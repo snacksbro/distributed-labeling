@@ -73,6 +73,13 @@ export default function Viewer({
     };
 
     const handleClick = (event) => {
+      // console.log("BUTTON IS " + event.button);
+      // event.preventDefault();
+      // if (event.button == 1) {
+      //   console.log("Right click??");
+      //   handleRightClick(event);
+      //   return;
+      // }
       // This is taken to get the relative location of client clicks
       const canvasRect = canvas.getBoundingClientRect();
 
@@ -98,7 +105,34 @@ export default function Viewer({
       }
     };
 
+    const handleRightClick = (event) => {
+      console.log("Right click detected!");
+      event.preventDefault();
+
+      const canvasRect = canvas.getBoundingClientRect();
+      const mouseX = event.x - canvasRect.left;
+      const mouseY = event.y - canvasRect.top;
+
+      console.log("Polygon len is " + polygonPoints.length);
+      console.log(`Event data is ${mouseX} ${mouseY}`);
+      for (let i = 0; i < polygonPoints.length; i++) {
+        console.log(
+          `Box data is: ${polygonPoints[i].points[0][0]} ${polygonPoints[i].points[1][0]} ${polygonPoints[i].points[0][1]} ${polygonPoints[i].points[1][1]}`,
+        );
+        if (
+          mouseX > polygonPoints[i].points[0][0] &&
+          mouseX < polygonPoints[i].points[1][0] &&
+          mouseY > polygonPoints[i].points[0][1] &&
+          mouseY < polygonPoints[i].points[1][1]
+        ) {
+          console.log("It happened!");
+          polygonPoints.splice(i, 1);
+        }
+      }
+    };
+
     canvas.addEventListener("click", handleClick);
+    canvas.addEventListener("contextmenu", handleRightClick);
 
     // Remove eventlistener on unmount
     return () => {
