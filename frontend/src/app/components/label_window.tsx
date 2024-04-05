@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Label from "./label";
+import LabelEditor from "./label_editor";
 
 // .get(`http://127.0.0.1:3001/get_labels?index=${imageIndex}`)
 export default function LabelWindow({
@@ -36,12 +37,17 @@ export default function LabelWindow({
         <input
           class="bg-green-500 hover:bg-green-700 text-white px-1 border border-green-700 rounded"
           type="button"
-          value="Add Label"
+          value="Add"
+        />
+        <input
+          class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
+          type="button"
+          value="Edit"
         />
         <input
           class="bg-red-500 hover:bg-red-700 text-white px-1 border border-red-700 rounded"
           type="button"
-          value="Delete Label"
+          value="Delete"
         />
       </div>
     </div>
