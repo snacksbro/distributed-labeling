@@ -11,6 +11,8 @@ export default function LabelWindow({
   currentLabel,
   setCurrentLabel,
 }) {
+  // let showForm = "hidden";
+  const [showForm, setShowForm] = useState("hidden");
   useEffect(() => {
     axios.get(`http://127.0.0.1:3001/get_label_list`).then((res) => {
       const retrieved_labels = res.data["label_list"];
@@ -21,6 +23,15 @@ export default function LabelWindow({
       updateLabels(retrieved_labels);
     });
   }, []);
+
+  const showEditor = (isVisible = true) => {
+    if (isVisible) {
+      setShowForm("visible");
+    } else {
+      setShowForm("hidden");
+    }
+  };
+
   return (
     <div>
       <ul>
@@ -43,6 +54,7 @@ export default function LabelWindow({
           class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
           type="button"
           value="Edit"
+          onClick={showEditor}
         />
         <input
           class="bg-red-500 hover:bg-red-700 text-white px-1 border border-red-700 rounded"
@@ -50,6 +62,12 @@ export default function LabelWindow({
           value="Delete"
         />
       </div>
+      <LabelEditor
+        labelName={currentLabel}
+        labelColor={"#C0FFEE"}
+        formVisibility={showForm}
+        setFormVisibility={showEditor}
+      />
     </div>
   );
 }
