@@ -24,6 +24,14 @@ export default function LabelWindow({
     });
   }, []);
 
+  const createNewLabelType = (labelName, labelColor = "undefined") => {
+    axios.post("http://127.0.0.1:3001/create_new_label_type", {
+      name: labelName,
+      color: labelColor,
+    });
+    // Then update the labels somehow
+  };
+
   const showEditor = (isVisible = true) => {
     if (isVisible) {
       setShowForm("visible");
@@ -49,12 +57,13 @@ export default function LabelWindow({
           class="bg-green-500 hover:bg-green-700 text-white px-1 border border-green-700 rounded"
           type="button"
           value="Add"
+          onClick={showEditor}
         />
         <input
           class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
           type="button"
           value="Edit"
-          onClick={showEditor}
+          onClick={() => showEditor(currentLabel, "#AAAAAA")}
         />
         <input
           class="bg-red-500 hover:bg-red-700 text-white px-1 border border-red-700 rounded"
@@ -67,6 +76,7 @@ export default function LabelWindow({
         labelColor={"#C0FFEE"}
         formVisibility={showForm}
         setFormVisibility={showEditor}
+        createNewLabelType={createNewLabelType}
       />
     </div>
   );
