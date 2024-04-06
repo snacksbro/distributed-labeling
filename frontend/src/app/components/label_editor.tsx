@@ -10,8 +10,8 @@ export default function LabelEditor({
   // const [currentName, setCurrentName] = useState("");
   // const [currentColor, setCurrentColor] = useState("");
   // const [visibility, setVisibility] = useState("hidden");
-  const [placeholderName, setPlaceHolderName] = useState("");
-  const [placeholderColor, setPlaceHolderColor] = useState("");
+  // const [placeholderName, setPlaceHolderName] = useState("");
+  // const [placeholderColor, setPlaceHolderColor] = useState("");
 
   const showEditor = (name = "", color = "") => {
     console.log(`Show editor called with ${name} ${color}`);
@@ -40,7 +40,7 @@ export default function LabelEditor({
           type="text"
           id="label-name"
           placeholder="Label Name..."
-          value={placeholderName}
+          value={labelName}
           onChange={handleNameChange}
         />
         <label for="label-color">Color:</label>
@@ -48,7 +48,7 @@ export default function LabelEditor({
           type="text"
           id="label-color"
           placeholder="Label Color..."
-          value={placeholderColor}
+          value={labelColor}
           onChange={handleColorChange}
         />
         <input
@@ -56,7 +56,11 @@ export default function LabelEditor({
           value="Confirm"
           onClick={() => submitNewLabel(labelName, labelColor)}
         />
-        <input type="button" value="Cancel" />
+        <input
+          type="button"
+          value="Cancel"
+          onClick={() => setFormVisibility("", "", false)}
+        />
       </form>
     </div>
   );

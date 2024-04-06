@@ -13,6 +13,8 @@ export default function LabelWindow({
 }) {
   // let showForm = "hidden";
   const [showForm, setShowForm] = useState("hidden");
+  const [placeholderName, setPlaceholderName] = useState("");
+  const [placeholderColor, setPlaceHolderColor] = useState("");
   useEffect(() => {
     axios.get(`http://127.0.0.1:3001/get_label_list`).then((res) => {
       const retrieved_labels = res.data["label_list"];
@@ -32,12 +34,15 @@ export default function LabelWindow({
     // Then update the labels somehow
   };
 
-  const showEditor = (isVisible = true) => {
+  const showEditor = (name = "", color = "", isVisible = true) => {
+    console.log(`Show editor called with ${name} ${color}`);
     if (isVisible) {
       setShowForm("visible");
     } else {
       setShowForm("hidden");
     }
+    setPlaceholderName(name);
+    setPlaceHolderColor(color);
   };
 
   return (
@@ -57,13 +62,13 @@ export default function LabelWindow({
           class="bg-green-500 hover:bg-green-700 text-white px-1 border border-green-700 rounded"
           type="button"
           value="Add"
-          onClick={showEditor}
+          onClick={() => showEditor("", "", true)}
         />
         <input
           class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
           type="button"
           value="Edit"
-          onClick={() => showEditor(currentLabel, "#AAAAAA")}
+          onClick={() => showEditor(currentLabel, "#AAAAAA", true)}
         />
         <input
           class="bg-red-500 hover:bg-red-700 text-white px-1 border border-red-700 rounded"
@@ -72,8 +77,8 @@ export default function LabelWindow({
         />
       </div>
       <LabelEditor
-        labelName={currentLabel}
-        labelColor={"#C0FFEE"}
+        labelName={placeholderName}
+        labelColor={placeholderColor}
         formVisibility={showForm}
         setFormVisibility={showEditor}
         createNewLabelType={createNewLabelType}
