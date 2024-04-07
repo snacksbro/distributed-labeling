@@ -209,5 +209,29 @@ def edit_label_type():
         return json.dumps({"success": False})
 
 
+@app.route("/delete_label_type", methods=["POST"])
+def delete_label_type():
+    """
+    Deletes an existing label in the Label module
+
+    Parameters
+    ----------
+    name:
+        The name of the label
+
+    Returns
+    -------
+    success:
+        If the operation was successful
+    """
+    try:
+        data = request.get_json()
+        label_name = data.get("name")
+        label_object.delete_label(label_name)
+        return json.dumps({"success": True})
+    except AttributeError:
+        return json.dumps({"success": False})
+
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=3001, debug=True)

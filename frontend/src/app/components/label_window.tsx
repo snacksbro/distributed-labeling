@@ -49,6 +49,15 @@ export default function LabelWindow({
     // Then update the labels somehow, probably a promise
   };
 
+  const deleteLabelType = (labelName) => {
+    axios.post("http://127.0.0.1:3001/delete_label_type", {
+      name: labelName,
+    });
+
+    // TODO: Also clear labels from FE, since it'll just re-send them
+    // Then update the labels somehow, probably a promise
+  };
+
   const showEditor = (name = "", color = "", isVisible = true) => {
     if (isVisible) {
       setShowForm("visible");
@@ -94,6 +103,9 @@ export default function LabelWindow({
           class="bg-red-500 hover:bg-red-700 text-white px-1 border border-red-700 rounded"
           type="button"
           value="Delete"
+          onClick={() => {
+            deleteLabelType(currentLabel);
+          }}
         />
       </div>
       <LabelEditor

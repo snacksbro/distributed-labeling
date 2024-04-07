@@ -135,6 +135,13 @@ class LabelManager:
         label_name (str):
             The name of the label to delete
         """
+        # Updating the existing label data
+        for label in self.dicom_labels:  # For each slice
+            if label is not None:
+                for sub_label in label:  # For each box
+                    if label_name == sub_label["name"]:
+                        del sub_label
+
         del self.labels[hash(label_name)]
 
     def set_labels(self, slice_location, label_data):
