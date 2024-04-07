@@ -86,18 +86,13 @@ export default function Homer() {
         labels={labels}
         imageIndex={imageIndex}
         polygonPoints={polygonPoints}
+        updateLabels={updateLabels}
+        setCurrentLabel={setCurrentLabel}
       />
       <Keybinds
         moveLabel={moveLabel}
         imageIndex={imageIndex}
         updateImageIndex={updateImageIndex}
-      />
-      <LabelWindow
-        imageIndex={imageIndex}
-        labels={labels}
-        updateLabels={updateLabels}
-        currentLabel={currentLabel}
-        setCurrentLabel={updateCurrentLabel}
       />
     </div>
   );

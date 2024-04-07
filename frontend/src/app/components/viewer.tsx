@@ -1,11 +1,14 @@
 import React, { useRef, useEffect } from "react";
 import axios from "axios";
+import LabelWindow from "./label_window";
 
 export default function Viewer({
   labels,
   currentLabel,
   imageIndex,
   polygonPoints,
+  updateLabels,
+  setCurrentLabel,
 }) {
   const canvasRef = useRef(null);
   const currentLabelRef = useRef(currentLabel);
@@ -173,6 +176,13 @@ export default function Viewer({
   return (
     <div>
       <canvas ref={canvasRef} />
+      <LabelWindow
+        imageIndex={imageIndex}
+        labels={labels}
+        updateLabels={updateLabels}
+        currentLabel={currentLabel}
+        setCurrentLabel={setCurrentLabel}
+      />
     </div>
   );
 }
