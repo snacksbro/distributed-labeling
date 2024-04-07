@@ -179,5 +179,35 @@ def create_new_label_type():
         return json.dumps({"success": False})
 
 
+@app.route("/edit_label_type", methods=["POST"])
+def edit_label_type():
+    """
+    Updates an existing label in the Label module
+
+    Parameters
+    ----------
+    old_name:
+        The former name of the new label
+    new_name:
+        The new name of the new label
+    color (optional):
+        The color of the new label
+
+    Returns
+    -------
+    success:
+        If the operation was successful
+    """
+    try:
+        data = request.get_json()
+        old_label_name = data.get("old_name")
+        new_label_name = data.get("new_name")
+        label_color = data.get("color")
+        label_object.update_label(old_label_name, new_label_name, label_color)
+        return json.dumps({"success": True})
+    except AttributeError:
+        return json.dumps({"success": False})
+
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=3001, debug=True)

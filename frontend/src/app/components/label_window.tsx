@@ -31,7 +31,16 @@ export default function LabelWindow({
       name: labelName,
       color: labelColor,
     });
-    // Then update the labels somehow
+    // Then update the labels somehow, probably a promise
+  };
+
+  const editLabelType = (labelName, labelColor = "undefined") => {
+    axios.post("http://127.0.0.1:3001/edit_label_type", {
+      old_name: currentLabel,
+      new_name: labelName,
+      color: labelColor,
+    });
+    // Then update the labels somehow, probably a promise
   };
 
   const showEditor = (name = "", color = "", isVisible = true) => {
