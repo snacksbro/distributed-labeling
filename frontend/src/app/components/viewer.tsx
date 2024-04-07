@@ -182,6 +182,7 @@ export default function Viewer({
         updateLabels={updateLabels}
         currentLabel={currentLabel}
         setCurrentLabel={setCurrentLabel}
+        getLabels={getLabels}
       />
     </div>
   );

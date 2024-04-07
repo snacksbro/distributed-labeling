@@ -10,6 +10,7 @@ export default function LabelWindow({
   updateLabels,
   currentLabel,
   setCurrentLabel,
+  getLabels,
 }) {
   // let showForm = "hidden";
   const [showForm, setShowForm] = useState("hidden");
@@ -18,6 +19,10 @@ export default function LabelWindow({
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
+    fetchLabelList();
+  }, []);
+
+  const fetchLabelList = () => {
     axios.get(`http://127.0.0.1:3001/get_label_list`).then((res) => {
       const retrieved_labels = res.data["label_list"];
 
@@ -26,33 +31,55 @@ export default function LabelWindow({
 
       updateLabels(retrieved_labels);
     });
-  }, []);
+  };
 
   const createNewLabelType = (labelName, labelColor = "undefined") => {
     if (editMode) {
       editLabelType(labelName, labelColor);
       return;
     }
-    axios.post("http://127.0.0.1:3001/create_new_label_type", {
-      name: labelName,
-      color: labelColor,
-    });
+    axios
+      .post("http://127.0.0.1:3001/create_new_label_type", {
+        name: labelName,
+        color: labelColor,
+      })
+      .then((res) => {
+        if (res.data["success"]) {
+          fetchLabelList();
+        }
+      });
     // Then update the labels somehow, probably a promise
   };
 
   const editLabelType = (labelName, labelColor = "undefined") => {
-    axios.post("http://127.0.0.1:3001/edit_label_type", {
-      old_name: currentLabel,
-      new_name: labelName,
-      color: labelColor,
-    });
+    axios
+      .post("http://127.0.0.1:3001/edit_label_type", {
+        old_name: currentLabel,
+        new_name: labelName,
+        color: labelColor,
+      })
+      .then((res) => {
+        if (res.data["success"]) {
+          fetchLabelList();
+          getLabels();
+        }
+      });
     // Then update the labels somehow, probably a promise
   };
 
   const deleteLabelType = (labelName) => {
-    axios.post("http://127.0.0.1:3001/delete_label_type", {
-      name: labelName,
-    });
+    axios
+      .post("http://127.0.0.1:3001/delete_label_type", {
+        name: labelName,
+      })
+      .then((res) => {
+        console.log(res.data["success"]);
+        if (res.data["success"]) {
+          console.log("refetching...");
+          fetchLabelList();
+          getLabels();
+        }
+      });
 
     // TODO: Also clear labels from FE, since it'll just re-send them
     // Then update the labels somehow, probably a promise
