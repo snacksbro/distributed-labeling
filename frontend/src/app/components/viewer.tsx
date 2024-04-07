@@ -24,7 +24,11 @@ export default function Viewer({
     const sliceImage = new Image();
     sliceImage.src = `http://127.0.0.1:3001/get_slice?index=${imageIndex}`;
     sliceImage.onload = () => {
+      getLabels();
       // Getting image information
+    };
+
+    const getLabels = () => {
       axios
         .get(`http://127.0.0.1:3001/get_slice_info?index=${imageIndex}`, {})
         .then((res) => {
