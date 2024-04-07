@@ -64,6 +64,7 @@ class LabelManager:
         """
         if color is None:
             color = self.default_colors[self.slice_num % len(self.default_colors)]
+        color = color.replace("#", "")  # Make pound symbols optional
         self.labels[hash(label_name)] = {"name": label_name, "color": color}
 
     def get_slice_labels(self, slice_location):
@@ -111,8 +112,19 @@ class LabelManager:
         color (str):
             (Optional) The updated color
         """
-        tmp = self.labels[hash(old_name)]
-        self.create_label(new_name, color if color is not None else tmp.color)
+
+        # Updating the existing label data
+        for label in self.dicom_labels:  # For each slice
+            if label is not None:
+                for sub_label in label:  # For each box
+                    if old_name == sub_label["name"]:
+                        sub_label["name"] = new_name
+
+        # Updating the label type
+        self.labels[hash(new_name)] = self.labels.pop(hash(old_name))
+        self.labels[hash(new_name)]["name"] = new_name
+        if color is not None:
+            self.labels[hash(new_name)]["color"] = color.replace("#", "")
 
     def delete_label(self, label_name):
         """
@@ -140,6 +152,8 @@ class LabelManager:
         if len(label_data) > 1:
             self.dicom_labels[slice_location] = label_data
             print(f"Labels set! They are {label_data}")
+        else:
+            print(f"THIS DIDN'T UPDATE: {label_data}")
         # else:
         #     self.dicom_labels[slice_location] = []
         #     print("FOOP")
