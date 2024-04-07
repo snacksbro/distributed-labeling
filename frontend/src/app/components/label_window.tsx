@@ -78,7 +78,9 @@ export default function LabelWindow({
       </div>
       <LabelEditor
         labelName={placeholderName}
+        setLabelName={setPlaceholderName}
         labelColor={placeholderColor}
+        setLabelColor={setPlaceHolderColor}
         formVisibility={showForm}
         setFormVisibility={showEditor}
         createNewLabelType={createNewLabelType}

@@ -39,6 +39,12 @@ def upload_file():
     label_object.create_label("test label")
     label_object.create_label("tester label", "C0FFEE")
     label_object.create_label("testest label")
+    # label_object.set_labels(
+    #     5, [{"name": "test label", "points": [[0, 100], [200, 300]]}]
+    # )
+    # label_object.set_labels(
+    #     6, [{"name": "tester label", "points": [[0, 100], [200, 300]]}]
+    # )
     # label_object.set_labels(0, [
     if dicom_object is not None:
         status_message["success"] = True
@@ -143,6 +149,34 @@ def get_slice():
         mimetype="image/png",
         as_attachment=True,
     )
+
+
+# Label Manager
+@app.route("/create_new_label_type", methods=["POST"])
+def create_new_label_type():
+    """
+    Creates a new label type in the Label module
+
+    Parameters
+    ----------
+    name:
+        The name of the new label
+    color (optional):
+        The color of the new label
+
+    Returns
+    -------
+    success:
+        If the operation was successful
+    """
+    try:
+        data = request.get_json()
+        label_name = data.get("name")
+        label_color = data.get("color")
+        label_object.create_label(label_name, label_color)
+        return json.dumps({"success": True})
+    except AttributeError:
+        return json.dumps({"success": False})
 
 
 if __name__ == "__main__":

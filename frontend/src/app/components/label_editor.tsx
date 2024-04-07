@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 export default function LabelEditor({
   labelName,
+  setLabelName,
   labelColor,
+  setLabelColor,
   formVisibility,
   setFormVisibility,
   createNewLabelType,
@@ -21,10 +23,10 @@ export default function LabelEditor({
   };
 
   const handleNameChange = (event) => {
-    setPlaceHolderName(event.target.value);
+    setLabelName(event.target.value);
   };
   const handleColorChange = (event) => {
-    setPlaceHolderColor(event.target.value);
+    setLabelColor(event.target.value);
   };
 
   const submitNewLabel = (name = "", color = "") => {
