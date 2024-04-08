@@ -5,7 +5,6 @@ import UploadButton from "./components/upload";
 import Controls from "./components/controls";
 import Viewer from "./components/viewer";
 import Keybinds from "./components/keybinds";
-import LabelWindow from "./components/label_window";
 import axios from "axios";
 
 export default function Homer() {
