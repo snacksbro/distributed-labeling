@@ -11,24 +11,40 @@ export default function Homer() {
   const [brightness, setBrightness] = useState(0);
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
-  const [polygonPoints, setPolygonPoints] = useState([[]]);
+  const [polygonPoints, setPolygonPoints] = useState([
+    { name: "", points: [] },
+  ]);
+  const [labels, setLabels] = useState([[]]); // Remove this? Since it's now all local
+  const [currentLabel, setCurrentLabel] = useState("");
 
   const updateBrightness = (value) => {
     setBrightness(value);
     console.log("Brightness updated to " + value.toString());
   };
 
+  const updateLabels = (value) => {
+    setLabels(value);
+  };
+
+  const moveLabel = (direction) => {
+    let i;
+    for (i = 0; i < labels.length; i++)
+      if (labels[i].name == currentLabel) break;
+    if (i + direction != -1 && i + direction != labels.length) {
+      updateCurrentLabel(labels[i + direction].name);
+    }
+  };
+
+  // Is this needed at all if I just pass setCurrentLabel to the labelmanager?
+  const updateCurrentLabel = (value) => {
+    setCurrentLabel(value);
+    console.log("Label updated to " + value);
+  };
+
   const updateImageIndex = (value) => {
     if (value < 0 || value > sliceCount) return false;
-    axios.post(
-      "http://127.0.0.1:3001/send_segmentation",
-      { segments: polygonPoints, index: imageIndex },
-      // { index: imageIndex },
-      {
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
-      },
+    console.log(
+      "Labels sent off! They are " + JSON.stringify(polygonPoints, null, 4),
     );
 
     setPolygonPoints([[]]);
@@ -59,8 +75,19 @@ export default function Homer() {
         <p>Hello vorld!</p>
         <p>You are brightness is {brightness}</p>
       </div>
-      <Viewer imageIndex={imageIndex} polygonPoints={polygonPoints} />
-      <Keybinds imageIndex={imageIndex} updateImageIndex={updateImageIndex} />
+      <Viewer
+        currentLabel={currentLabel}
+        labels={labels}
+        imageIndex={imageIndex}
+        polygonPoints={polygonPoints}
+        updateLabels={updateLabels}
+        setCurrentLabel={setCurrentLabel}
+      />
+      <Keybinds
+        moveLabel={moveLabel}
+        imageIndex={imageIndex}
+        updateImageIndex={updateImageIndex}
+      />
     </div>
   );
 }
