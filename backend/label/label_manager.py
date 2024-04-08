@@ -138,9 +138,9 @@ class LabelManager:
         # Updating the existing label data
         for label in self.dicom_labels:  # For each slice
             if label is not None:
-                for sub_label in label:  # For each box
-                    if label_name == sub_label["name"]:
-                        del sub_label
+                label[:] = [
+                    sub_label for sub_label in label if sub_label["name"] != label_name
+                ]
 
         del self.labels[hash(label_name)]
 
