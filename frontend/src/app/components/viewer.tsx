@@ -27,10 +27,7 @@ export default function Viewer({
     canvas = canvasRef.current;
     context = canvas.getContext("2d");
     squareIndex = 0;
-    // sliceImage.onload = () => {
     getLabels();
-    // Getting image information
-    // };
 
     const drawLabels = () => {
       squareIndex = 0;
@@ -45,8 +42,6 @@ export default function Viewer({
           renderPolygon(polygonPoints[i].points, polygonPoints[i].name);
           squareIndex++;
         }
-      } else {
-        // polygonPoints[0] = { name: "", points: [] };
       }
     };
 
@@ -60,7 +55,7 @@ export default function Viewer({
           points: [],
         };
       }
-      // polygonPoints[squareIndex].name = currentLabelRef.current;
+
       polygonPoints[squareIndex].points.push([
         event.x - canvasRect.left,
         event.y - canvasRect.top,
@@ -119,6 +114,7 @@ export default function Viewer({
       });
     };
   }, [imageIndex]);
+
   const getLabels = () => {
     canvas = canvasRef.current;
     context = canvas.getContext("2d");
@@ -152,6 +148,7 @@ export default function Viewer({
         });
     };
   };
+
   const renderPolygon = (points, labelName) => {
     context.beginPath();
     const rectWidth = points[1][0] - points[0][0];
@@ -162,6 +159,7 @@ export default function Viewer({
     context.lineWidth = 2;
     context.stroke();
   };
+
   const getCurrentColor = (labelName = undefined) => {
     let i;
     for (i = 0; i < labels.length; i++) {
@@ -170,6 +168,7 @@ export default function Viewer({
       }
     }
   };
+
   return (
     <div>
       <canvas ref={canvasRef} />

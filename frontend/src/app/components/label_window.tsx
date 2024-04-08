@@ -12,7 +12,6 @@ export default function LabelWindow({
   setCurrentLabel,
   getLabels,
 }) {
-  // let showForm = "hidden";
   const [showForm, setShowForm] = useState("hidden");
   const [placeholderName, setPlaceholderName] = useState("");
   const [placeholderColor, setPlaceHolderColor] = useState("");
@@ -48,7 +47,6 @@ export default function LabelWindow({
           fetchLabelList();
         }
       });
-    // Then update the labels somehow, probably a promise
   };
 
   const editLabelType = (labelName, labelColor = "undefined") => {
@@ -64,7 +62,6 @@ export default function LabelWindow({
           getLabels();
         }
       });
-    // Then update the labels somehow, probably a promise
   };
 
   const deleteLabelType = (labelName) => {
@@ -73,16 +70,11 @@ export default function LabelWindow({
         name: labelName,
       })
       .then((res) => {
-        console.log(res.data["success"]);
         if (res.data["success"]) {
-          console.log("refetching...");
           fetchLabelList();
           getLabels();
         }
       });
-
-    // TODO: Also clear labels from FE, since it'll just re-send them
-    // Then update the labels somehow, probably a promise
   };
 
   const showEditor = (name = "", color = "", isVisible = true) => {

@@ -9,19 +9,6 @@ export default function LabelEditor({
   setFormVisibility,
   createNewLabelType,
 }) {
-  // const [currentName, setCurrentName] = useState("");
-  // const [currentColor, setCurrentColor] = useState("");
-  // const [visibility, setVisibility] = useState("hidden");
-  // const [placeholderName, setPlaceHolderName] = useState("");
-  // const [placeholderColor, setPlaceHolderColor] = useState("");
-
-  const showEditor = (name = "", color = "") => {
-    console.log(`Show editor called with ${name} ${color}`);
-    setPlaceHolderName(name);
-    setPlaceHolderColor(color);
-    setVisibility("visible");
-  };
-
   const handleNameChange = (event) => {
     setLabelName(event.target.value);
   };

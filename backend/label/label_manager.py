@@ -59,8 +59,8 @@ class LabelManager:
         ----------
         label_name (str):
             The label's name
-        color (str):
-            (Optional) The color of the label
+        color (str, optional):
+            The color of the label in hex, pound symbol optional
         """
         if color is None:
             color = self.default_colors[self.slice_num % len(self.default_colors)]
@@ -158,9 +158,3 @@ class LabelManager:
         # If there's new labels
         if len(label_data) > 1:
             self.dicom_labels[slice_location] = label_data
-            print(f"Labels set! They are {label_data}")
-        else:
-            print(f"THIS DIDN'T UPDATE: {label_data}")
-        # else:
-        #     self.dicom_labels[slice_location] = []
-        #     print("FOOP")

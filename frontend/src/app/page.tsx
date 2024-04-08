@@ -23,10 +23,6 @@ export default function Homer() {
     console.log("Brightness updated to " + value.toString());
   };
 
-  // const setLabels = (value) => {
-  //   console.log("SET" + value);
-  // };
-
   const updateLabels = (value) => {
     setLabels(value);
   };
@@ -37,7 +33,6 @@ export default function Homer() {
       if (labels[i].name == currentLabel) break;
     if (i + direction != -1 && i + direction != labels.length) {
       updateCurrentLabel(labels[i + direction].name);
-      console.log("CURRENT LABEL UPDATED TO " + labels[i + direction].name);
     }
   };
 
