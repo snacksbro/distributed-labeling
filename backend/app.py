@@ -8,6 +8,7 @@ import json
 from flask import Flask, request, send_file
 from flask_cors import CORS
 from server.upload import check_filetype, handle_upload
+from data.data import export_json
 from dicom.DicomInfo import DicomInfo
 from label.label_manager import LabelManager
 
@@ -237,6 +238,18 @@ def delete_label_type():
         return json.dumps({"success": True})
     except AttributeError:
         return json.dumps({"success": False})
+
+
+# Export/Import
+@app.route("/export_json", methods=["GET"])
+def export_to_json():
+    json_file = export_json(label_object)
+    return send_file(
+        json_file,
+        download_name="data.json",
+        mimetype="application/json",
+        as_attachment=True,
+    )
 
 
 if __name__ == "__main__":
