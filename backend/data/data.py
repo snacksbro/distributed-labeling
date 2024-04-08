@@ -2,6 +2,7 @@
 
 import json
 import io
+import zipfile
 
 
 def export_json(label_object):
@@ -26,8 +27,28 @@ def export_json(label_object):
     return json_buf
 
 
-def return_yolo(label_object):
-    pass
+def export_yolo(label_object):
+    """
+
+    Format
+    ------
+    Per label:
+        label_name min_x min_y max_x max_y
+    This is performed in a different file for image
+
+    """
+    zip_buf = io.BytesIO()
+
+    with zipfile.ZipFile(zip_buf, "w") as zf:
+        for i, dicom_slide in enumerate(label_object.dicom_labels):
+            if dicom_slide is not None:
+                content = ""
+                for label in dicom_slide:
+                    content += f"{label['name']} {label['points'][0][0]} {label['points'][0][1]} {label['points'][1][0]} {label['points'][1][1]}\n"
+                zf.writestr(f"label {i}.txt", content.encode())
+
+    zip_buf.seek(0)
+    return zip_buf
 
 
 def import_json():
