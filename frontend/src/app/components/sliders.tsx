@@ -4,12 +4,16 @@ import "./styles/sliders.css";
 export default function SliderWindow({
   brightness,
   updateBrightness,
-  constast,
+  contrast,
   setContrast,
   minThreshold,
   setMinThreshold,
   maxThreshold,
   setMaxThreshold,
+  grayscale,
+  setGrayscale,
+  inversion,
+  setInversion,
 }) {
   const handleMinThresholdUpdate = (event) => {
     if (event.target.value >= maxThreshold) {
@@ -61,6 +65,23 @@ export default function SliderWindow({
           value={maxThreshold}
           min="1"
           max="100"
+        />
+      </div>
+      <div>
+        <label htmlFor="grayscale">Grayscale: </label>
+        <input
+          id="grayscale"
+          type="checkbox"
+          checked={grayscale}
+          onChange={() => setGrayscale(!grayscale)}
+        />
+        <br />
+        <label htmlFor="inversion">Inversion: </label>
+        <input
+          id="inversion"
+          type="checkbox"
+          checked={inversion}
+          onChange={() => setInversion(!inversion)}
         />
       </div>
     </div>

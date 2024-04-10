@@ -16,6 +16,10 @@ export default function Homer() {
   const [minThreshold, setMinThreshold] = useState(0);
   const [maxThreshold, setMaxThreshold] = useState(100);
 
+  // Checkboxes
+  const [grayscale, setGrayscale] = useState(false);
+  const [inversion, setInversion] = useState(false);
+
   // Viewer
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
@@ -80,6 +84,10 @@ export default function Homer() {
         setMinThreshold={setMinThreshold}
         maxThreshold={maxThreshold}
         setMaxThreshold={setMaxThreshold}
+        grayscale={grayscale}
+        setGrayscale={setGrayscale}
+        inversion={inversion}
+        setInversion={setInversion}
       />
       <UploadButton
         sliceCount={sliceCount}
