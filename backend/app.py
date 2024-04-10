@@ -8,7 +8,7 @@ import json
 from flask import Flask, request, send_file
 from flask_cors import CORS
 from server.upload import check_filetype, handle_upload
-from data.data import export_json, export_yolo
+from data.data import export_json, export_yolo, import_json
 from dicom.DicomInfo import DicomInfo
 from label.label_manager import LabelManager
 
@@ -243,6 +243,9 @@ def delete_label_type():
 # Export/Import
 @app.route("/export_json", methods=["GET"])
 def export_to_json():
+    """
+    Route to hande exporting to JSON. This will trigger a download to the user
+    """
     json_file = export_json(label_object)
     return send_file(
         json_file,
@@ -254,6 +257,9 @@ def export_to_json():
 
 @app.route("/export_yolo", methods=["GET"])
 def export_to_yolo():
+    """
+    Route to hande exporting to YOLO. This will trigger a download to the user
+    """
     zip_file = export_yolo(label_object)
     return send_file(
         zip_file,
@@ -261,6 +267,15 @@ def export_to_yolo():
         mimetype="application/zip",
         as_attachment=True,
     )
+
+
+@app.route("/import_json", methods=["POST"])
+def import_from_json():
+    """
+    Route to hande importing the JSON obtained by export_json
+    """
+    json_file = request.files["file"]
+    return {"success": import_json(label_object, json_file)}
 
 
 if __name__ == "__main__":
