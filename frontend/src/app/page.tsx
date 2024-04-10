@@ -70,30 +70,43 @@ export default function Homer() {
 
   return (
     <div>
-      <SliderWindow
-        brightness={brightness}
-        setBrightness={setBrightness}
-        contrast={contrast}
-        setContrast={setContrast}
-        minThreshold={minThreshold}
-        setMinThreshold={setMinThreshold}
-        maxThreshold={maxThreshold}
-        setMaxThreshold={setMaxThreshold}
-        grayscale={grayscale}
-        setGrayscale={setGrayscale}
-        inversion={inversion}
-        setInversion={setInversion}
-      />
-      <UploadButton
-        sliceCount={sliceCount}
-        updateSliceCount={updateSliceCount}
-      />
-      <ImportButton />
-      <Controls
-        sliceCount={sliceCount}
-        imageIndex={imageIndex}
-        updateImageIndex={updateImageIndex}
-      />
+      <div>
+        <SliderWindow
+          brightness={brightness}
+          setBrightness={setBrightness}
+          contrast={contrast}
+          setContrast={setContrast}
+          minThreshold={minThreshold}
+          setMinThreshold={setMinThreshold}
+          maxThreshold={maxThreshold}
+          setMaxThreshold={setMaxThreshold}
+          grayscale={grayscale}
+          setGrayscale={setGrayscale}
+          inversion={inversion}
+          setInversion={setInversion}
+        />
+        <Controls
+          sliceCount={sliceCount}
+          imageIndex={imageIndex}
+          updateImageIndex={updateImageIndex}
+        />
+      </div>
+      <div>
+        <UploadButton
+          sliceCount={sliceCount}
+          updateSliceCount={updateSliceCount}
+        />
+        <ImportButton />
+        <input
+          type="button"
+          value="Export"
+          onClick={() => setShowExport("visible")}
+        />
+        <ExportWindow
+          windowVisibility={showExport}
+          setWindowVisibility={setShowExport}
+        />
+      </div>
       <div className="bg-sky-900">
         <p>Hello vorld!</p>
         <p>You are brightness is {brightness}</p>
@@ -105,15 +118,6 @@ export default function Homer() {
         polygonPoints={polygonPoints}
         updateLabels={updateLabels}
         setCurrentLabel={setCurrentLabel}
-      />
-      <input
-        type="button"
-        value="Export"
-        onClick={() => setShowExport("visible")}
-      />
-      <ExportWindow
-        windowVisibility={showExport}
-        setWindowVisibility={setShowExport}
       />
       <Keybinds
         moveLabel={moveLabel}
