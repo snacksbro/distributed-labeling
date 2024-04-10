@@ -70,42 +70,48 @@ export default function Homer() {
 
   return (
     <div>
-      <div>
-        <SliderWindow
-          brightness={brightness}
-          setBrightness={setBrightness}
-          contrast={contrast}
-          setContrast={setContrast}
-          minThreshold={minThreshold}
-          setMinThreshold={setMinThreshold}
-          maxThreshold={maxThreshold}
-          setMaxThreshold={setMaxThreshold}
-          grayscale={grayscale}
-          setGrayscale={setGrayscale}
-          inversion={inversion}
-          setInversion={setInversion}
-        />
-        <Controls
-          sliceCount={sliceCount}
-          imageIndex={imageIndex}
-          updateImageIndex={updateImageIndex}
-        />
-      </div>
-      <div>
-        <UploadButton
-          sliceCount={sliceCount}
-          updateSliceCount={updateSliceCount}
-        />
-        <ImportButton />
-        <input
-          type="button"
-          value="Export"
-          onClick={() => setShowExport("visible")}
-        />
-        <ExportWindow
-          windowVisibility={showExport}
-          setWindowVisibility={setShowExport}
-        />
+      <div className="w-auto inline-block px-4 bg-blue-300" id="left-window">
+        <div id="left-tabs">
+          <input className="bg-blue-300 px-4" type="button" value="Adjust" />
+          <input type="button" value="Data" />
+        </div>
+        <div className="left-tab" id="image-tab">
+          <SliderWindow
+            brightness={brightness}
+            setBrightness={setBrightness}
+            contrast={contrast}
+            setContrast={setContrast}
+            minThreshold={minThreshold}
+            setMinThreshold={setMinThreshold}
+            maxThreshold={maxThreshold}
+            setMaxThreshold={setMaxThreshold}
+            grayscale={grayscale}
+            setGrayscale={setGrayscale}
+            inversion={inversion}
+            setInversion={setInversion}
+          />
+          <Controls
+            sliceCount={sliceCount}
+            imageIndex={imageIndex}
+            updateImageIndex={updateImageIndex}
+          />
+        </div>
+        <div className="right-tab" id="data-tab">
+          <UploadButton
+            sliceCount={sliceCount}
+            updateSliceCount={updateSliceCount}
+          />
+          <ImportButton />
+          <input
+            type="button"
+            value="Export"
+            onClick={() => setShowExport("visible")}
+          />
+          <ExportWindow
+            windowVisibility={showExport}
+            setWindowVisibility={setShowExport}
+          />
+        </div>
       </div>
       <div className="bg-sky-900">
         <p>Hello vorld!</p>
