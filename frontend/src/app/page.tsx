@@ -34,11 +34,6 @@ export default function Homer() {
   // Export
   const [showExport, setShowExport] = useState("hidden");
 
-  const updateBrightness = (value) => {
-    setBrightness(value);
-    console.log("Brightness updated to " + value.toString());
-  };
-
   const updateLabels = (value) => {
     setLabels(value);
   };
@@ -77,9 +72,9 @@ export default function Homer() {
     <div>
       <SliderWindow
         brightness={brightness}
-        updateBrightness={updateBrightness}
+        setBrightness={setBrightness}
         contrast={contrast}
-        updateContrast={setContrast}
+        setContrast={setContrast}
         minThreshold={minThreshold}
         setMinThreshold={setMinThreshold}
         maxThreshold={maxThreshold}
