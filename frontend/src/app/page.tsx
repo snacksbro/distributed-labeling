@@ -10,20 +10,29 @@ import ExportWindow from "./components/export_window";
 import axios from "axios";
 
 export default function Homer() {
+  // Sliders
   const [brightness, setBrightness] = useState(0);
+  const [contrast, setContrast] = useState(0);
+  const [minThreshold, setMinThreshold] = useState(0);
+  const [maxThreshold, setMaxThreshold] = useState(100);
+
+  // Checkboxes
+  const [grayscale, setGrayscale] = useState(false);
+  const [inversion, setInversion] = useState(false);
+
+  // Viewer
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
   const [polygonPoints, setPolygonPoints] = useState([
     { name: "", points: [] },
   ]);
+
+  // Label Window
   const [labels, setLabels] = useState([[]]); // Remove this? Since it's now all local
   const [currentLabel, setCurrentLabel] = useState("");
-  const [showExport, setShowExport] = useState("hidden");
 
-  const updateBrightness = (value) => {
-    setBrightness(value);
-    console.log("Brightness updated to " + value.toString());
-  };
+  // Export
+  const [showExport, setShowExport] = useState("hidden");
 
   const updateLabels = (value) => {
     setLabels(value);
@@ -63,7 +72,17 @@ export default function Homer() {
     <div>
       <SliderWindow
         brightness={brightness}
-        updateBrightness={updateBrightness}
+        setBrightness={setBrightness}
+        contrast={contrast}
+        setContrast={setContrast}
+        minThreshold={minThreshold}
+        setMinThreshold={setMinThreshold}
+        maxThreshold={maxThreshold}
+        setMaxThreshold={setMaxThreshold}
+        grayscale={grayscale}
+        setGrayscale={setGrayscale}
+        inversion={inversion}
+        setInversion={setInversion}
       />
       <UploadButton
         sliceCount={sliceCount}
