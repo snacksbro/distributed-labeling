@@ -5,6 +5,7 @@ import UploadButton from "./components/upload";
 import Controls from "./components/controls";
 import Viewer from "./components/viewer";
 import Keybinds from "./components/keybinds";
+import ExportWindow from "./components/export_window";
 import axios from "axios";
 
 export default function Homer() {
@@ -16,6 +17,7 @@ export default function Homer() {
   ]);
   const [labels, setLabels] = useState([[]]); // Remove this? Since it's now all local
   const [currentLabel, setCurrentLabel] = useState("");
+  const [showExport, setShowExport] = useState("hidden");
 
   const updateBrightness = (value) => {
     setBrightness(value);
@@ -82,6 +84,15 @@ export default function Homer() {
         polygonPoints={polygonPoints}
         updateLabels={updateLabels}
         setCurrentLabel={setCurrentLabel}
+      />
+      <input
+        type="button"
+        value="Export"
+        onClick={() => setShowExport("visible")}
+      />
+      <ExportWindow
+        windowVisibility={showExport}
+        setWindowVisibility={setShowExport}
       />
       <Keybinds
         moveLabel={moveLabel}
