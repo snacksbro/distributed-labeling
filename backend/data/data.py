@@ -11,16 +11,17 @@ def export_json(label_object):
 
     Parameters
     ----------
-    The label object as used in the rest of the application
+    label_object (dict):
+        The label object as used in the rest of the application
     Returns
     -------
-    The JSON buffer to return to the user
+    buffer:
+        The JSON buffer to return to the user
     """
     json_buf = io.BytesIO()
     dicom_obj = json.dumps(
         {"labels": label_object.dicom_labels, "label_types": label_object.labels}
     )
-    # json.dump(dicom_obj, json_buf)
     json_buf = io.BytesIO(dicom_obj.encode("utf-8"))
     json_buf.seek(0)
 
@@ -29,6 +30,16 @@ def export_json(label_object):
 
 def export_yolo(label_object):
     """
+    Creates a file to serve in YOLO label format
+
+    Parameters
+    ----------
+    label_object (dict):
+        The label object as used in the rest of the application
+    Returns
+    -------
+    buffer:
+        The zipfile buffer containing the labels to return to the user
 
     Format
     ------
