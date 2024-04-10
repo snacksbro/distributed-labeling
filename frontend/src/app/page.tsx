@@ -10,14 +10,24 @@ import ExportWindow from "./components/export_window";
 import axios from "axios";
 
 export default function Homer() {
+  // Sliders
   const [brightness, setBrightness] = useState(0);
+  const [contrast, setContrast] = useState(0);
+  const [minThreshold, setMinThreshold] = useState(0);
+  const [maxThreshold, setMaxThreshold] = useState(100);
+
+  // Viewer
   const [imageIndex, setImageIndex] = useState(0);
   const [sliceCount, setSliceCount] = useState(0);
   const [polygonPoints, setPolygonPoints] = useState([
     { name: "", points: [] },
   ]);
+
+  // Label Window
   const [labels, setLabels] = useState([[]]); // Remove this? Since it's now all local
   const [currentLabel, setCurrentLabel] = useState("");
+
+  // Export
   const [showExport, setShowExport] = useState("hidden");
 
   const updateBrightness = (value) => {
@@ -64,6 +74,12 @@ export default function Homer() {
       <SliderWindow
         brightness={brightness}
         updateBrightness={updateBrightness}
+        contrast={contrast}
+        updateContrast={setContrast}
+        minThreshold={minThreshold}
+        setMinThreshold={setMinThreshold}
+        maxThreshold={maxThreshold}
+        setMaxThreshold={setMaxThreshold}
       />
       <UploadButton
         sliceCount={sliceCount}
