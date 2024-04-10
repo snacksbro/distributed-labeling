@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SliderWindow from "./components/sliders";
 import UploadButton from "./components/upload";
+import ImportButton from "./components/import";
 import Controls from "./components/controls";
 import Viewer from "./components/viewer";
 import Keybinds from "./components/keybinds";
@@ -68,6 +69,7 @@ export default function Homer() {
         sliceCount={sliceCount}
         updateSliceCount={updateSliceCount}
       />
+      <ImportButton />
       <Controls
         sliceCount={sliceCount}
         imageIndex={imageIndex}

@@ -62,5 +62,26 @@ def export_yolo(label_object):
     return zip_buf
 
 
-def import_json():
-    pass
+def import_json(label_object, json_obj):
+    """
+    Loads a JSON string into the label_object
+
+    Parameters
+    ----------
+    label_object (dict):
+        The label object as used in the rest of the application
+    json_obj (FileStorage):
+        The contents of an uploaded JSON file containing the data
+    Returns
+    -------
+    success:
+        Whether or not the operation was successful
+    """
+    try:
+        json_str = json_obj.read()
+        import_dict = json.loads(json_str)
+        label_object.dicom_labels = import_dict["labels"]
+        label_object.labels = import_dict["label_types"]
+    except IndexError:
+        return False
+    return True
