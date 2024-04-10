@@ -13,6 +13,7 @@ export default function ExportWindow({
           window.open("http://127.0.0.1:3001/export_json", "_blank")
         }
       />
+      <br />
       <input
         type="button"
         value="Export to YOLO"
@@ -20,6 +21,7 @@ export default function ExportWindow({
           window.open("http://127.0.0.1:3001/export_yolo", "_blank")
         }
       />
+      <br />
       <input
         type="button"
         value="Dismiss"
