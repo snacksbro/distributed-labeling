@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import axios from "axios";
 import LabelWindow from "./label_window";
+import "./styles/viewer.css";
 
 export default function Viewer({
   labels,
@@ -170,7 +171,7 @@ export default function Viewer({
   };
 
   return (
-    <div>
+    <div id="viewer-container">
       <canvas ref={canvasRef} />
       <LabelWindow
         imageIndex={imageIndex}
