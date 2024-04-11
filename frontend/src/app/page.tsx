@@ -8,6 +8,7 @@ import Viewer from "./components/viewer";
 import Keybinds from "./components/keybinds";
 import ExportWindow from "./components/export_window";
 import axios from "axios";
+import "./components/styles/page.css";
 
 export default function Homer() {
   // Sliders
@@ -69,7 +70,7 @@ export default function Homer() {
   };
 
   return (
-    <div>
+    <div id="main-container">
       <div className="w-auto inline-block px-4 bg-blue-300" id="left-window">
         <div id="left-tabs">
           <input className="bg-blue-300 px-4" type="button" value="Adjust" />
@@ -112,10 +113,6 @@ export default function Homer() {
             setWindowVisibility={setShowExport}
           />
         </div>
-      </div>
-      <div className="bg-sky-900">
-        <p>Hello vorld!</p>
-        <p>You are brightness is {brightness}</p>
       </div>
       <Viewer
         currentLabel={currentLabel}
