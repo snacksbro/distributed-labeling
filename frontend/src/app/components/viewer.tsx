@@ -49,6 +49,7 @@ export default function Viewer({
     const handleClick = (event) => {
       // This is taken to get the relative location of client clicks
       const canvasRect = canvas.getBoundingClientRect();
+      canvas = canvasRef.current;
 
       if (polygonPoints.length <= squareIndex) {
         polygonPoints[squareIndex] = {
@@ -57,9 +58,10 @@ export default function Viewer({
         };
       }
 
+      // This takes into account both the canvas offset, as well as the scale factor
       polygonPoints[squareIndex].points.push([
-        event.x - canvasRect.left,
-        event.y - canvasRect.top,
+        (event.x - canvasRect.left) / (canvasRect.width / canvas.width),
+        (event.y - canvasRect.top) / (canvasRect.height / canvas.height),
       ]);
 
       // If the shape is "complete" i.e. has 2 points
