@@ -31,6 +31,7 @@ export default function SliderWindow({
 
   return (
     <div>
+      <p className="underline text-lg">Image Adjustment</p>
       <label htmlFor="contrast">Contrast: </label>
       <br />
       <input
@@ -66,6 +67,7 @@ export default function SliderWindow({
       />
       <br />
       <div className="threshold-sliders">
+        <p className="underline text-lg">Thresholding</p>
         <label htmlFor="threshold-min">Threshold Min: </label>
         <br />
         <input
@@ -103,6 +105,7 @@ export default function SliderWindow({
         />
       </div>
       <div>
+        <p className="underline text-lg">Colorspace</p>
         <label htmlFor="grayscale">Grayscale: </label>
         <input
           id="grayscale"
