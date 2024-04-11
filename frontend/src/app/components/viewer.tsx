@@ -78,9 +78,13 @@ export default function Viewer({
       console.log("Right click detected!");
       event.preventDefault();
 
+      // TODO: Make a function to calculate x/y (DRY)
       const canvasRect = canvas.getBoundingClientRect();
-      const mouseX = event.x - canvasRect.left;
-      const mouseY = event.y - canvasRect.top;
+      canvas = canvasRef.current;
+      const mouseX =
+        (event.x - canvasRect.left) / (canvasRect.width / canvas.width);
+      const mouseY =
+        (event.y - canvasRect.top) / (canvasRect.height / canvas.height);
 
       console.log("Polygon len is " + polygonPoints.length);
       console.log(`Event data is ${mouseX} ${mouseY}`);
