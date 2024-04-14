@@ -22,9 +22,12 @@ export default function LabelEditor({
   };
 
   return (
-    <div className="fixed" style={{ visibility: formVisibility }}>
+    <div className="fixed " style={{ visibility: formVisibility }}>
       <form>
-        <label for="label-name">Name:</label>
+        <label for="label-name" className="text-lg">
+          Name:
+        </label>
+        <br />
         <input
           type="text"
           id="label-name"
@@ -32,7 +35,11 @@ export default function LabelEditor({
           value={labelName}
           onChange={handleNameChange}
         />
-        <label for="label-color">Color:</label>
+        <br />
+        <label for="label-color" className="text-lg">
+          Color:
+        </label>
+        <br />
         <input
           type="text"
           id="label-color"
@@ -40,12 +47,18 @@ export default function LabelEditor({
           value={labelColor}
           onChange={handleColorChange}
         />
+        <br />
         <input
+          className="bg-green-500 hover:bg-green-700 text-white px-5 border border-green-700 rounded text-xl"
           type="button"
           value="Confirm"
-          onClick={() => submitNewLabel(labelName, labelColor)}
+          onClick={() => {
+            submitNewLabel(labelName, labelColor);
+            setFormVisibility("", "", false);
+          }}
         />
         <input
+          className="bg-red-500 hover:bg-red-700 text-white px-5 text-xl border border-red-700 rounded"
           type="button"
           value="Cancel"
           onClick={() => setFormVisibility("", "", false)}
