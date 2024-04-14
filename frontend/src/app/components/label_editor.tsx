@@ -33,6 +33,7 @@ export default function LabelEditor({
           type="text"
           id="label-name"
           placeholder="Label Name..."
+          className="py-1 px-1 border rounded-lg"
           value={labelName}
           onChange={handleNameChange}
         />
@@ -45,12 +46,13 @@ export default function LabelEditor({
           type="text"
           id="label-color"
           placeholder="Label Color..."
+          className="py-1 px-1 border rounded-lg"
           value={labelColor}
           onChange={handleColorChange}
         />
         <br />
         <input
-          className="bg-green-500 hover:bg-green-700 text-white px-5 border border-green-700 rounded text-xl"
+          className="bg-green-500 hover:bg-green-700 text-white px-5 border border-green-700 rounded text-xl my-3"
           type="button"
           value="Confirm"
           onClick={() => {
@@ -59,7 +61,7 @@ export default function LabelEditor({
           }}
         />
         <input
-          className="bg-red-500 hover:bg-red-700 text-white px-5 text-xl border border-red-700 rounded"
+          className="bg-red-500 hover:bg-red-700 text-white px-5 text-xl border border-red-700 rounded mx-3"
           type="button"
           value="Cancel"
           onClick={() => setFormVisibility("", "", false)}
