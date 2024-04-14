@@ -22,7 +22,7 @@ export default function LabelEditor({
   };
 
   return (
-    <div style={{ visibility: formVisibility }}>
+    <div className="fixed" style={{ visibility: formVisibility }}>
       <form>
         <label for="label-name">Name:</label>
         <input
