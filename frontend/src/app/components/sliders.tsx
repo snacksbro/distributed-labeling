@@ -39,6 +39,7 @@ export default function SliderWindow({
         type="range"
         min="0"
         max="100"
+        className="w-[80%] mx-3"
         value={contrast}
         onChange={(e) => setContrast(e.target.value)}
       />
@@ -55,6 +56,7 @@ export default function SliderWindow({
         id="brightness"
         onChange={(e) => setBrightness(e.target.value)}
         type="range"
+        className="w-[80%] mx-3"
         value={brightness}
         min="0"
         max="100"
@@ -71,7 +73,7 @@ export default function SliderWindow({
         <label htmlFor="threshold-min">Threshold Min: </label>
         <br />
         <input
-          className="slider"
+          className="w-[80%] mx-3"
           id="threshold-min"
           onChange={handleMinThresholdUpdate}
           type="range"
@@ -89,7 +91,7 @@ export default function SliderWindow({
         <label htmlFor="threshold-max">Threshold Max: </label>
         <br />
         <input
-          className="slider"
+          className="w-[80%] mx-3"
           id="threshold-max"
           onChange={handleMaxThresholdUpdate}
           type="range"
