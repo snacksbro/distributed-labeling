@@ -88,20 +88,23 @@ export default function LabelWindow({
   };
 
   return (
-    <div>
-      <ul>
-        {labels.map((label, index) => (
-          <Label
-            key={index}
-            selectedLabel={currentLabel}
-            labelIndex={index}
-            labelContent={label}
-          />
-        ))}
-      </ul>
+    <div className="flex flex-col justify-between bg-blue-300 px-4 w-[25vw]">
       <div>
+        <p className="underline text-lg">Labels</p>
+        <ul>
+          {labels.map((label, index) => (
+            <Label
+              key={index}
+              selectedLabel={currentLabel}
+              labelIndex={index}
+              labelContent={label}
+            />
+          ))}
+        </ul>
+      </div>
+      <div className="flex justify-between">
         <input
-          class="bg-green-500 hover:bg-green-700 text-white px-1 border border-green-700 rounded"
+          class="bg-green-500 hover:bg-green-700 text-white px-5 border border-green-700 rounded text-xl"
           type="button"
           value="Add"
           onClick={() => {
@@ -110,7 +113,7 @@ export default function LabelWindow({
           }}
         />
         <input
-          class="bg-blue-500 hover:bg-blue-700 text-white px-1 border border-blue-700 rounded"
+          class="bg-blue-500 hover:bg-blue-700 text-white px-5 text-xl border border-blue-700 rounded"
           type="button"
           value="Edit"
           onClick={() => {
@@ -119,7 +122,7 @@ export default function LabelWindow({
           }}
         />
         <input
-          class="bg-red-500 hover:bg-red-700 text-white px-1 border border-red-700 rounded"
+          class="bg-red-500 hover:bg-red-700 text-white px-5 text-xl border border-red-700 rounded"
           type="button"
           value="Delete"
           onClick={() => {
