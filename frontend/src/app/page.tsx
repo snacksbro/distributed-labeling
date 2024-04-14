@@ -74,15 +74,19 @@ export default function Homer() {
 
   return (
     <div id="main-container">
-      <div className="w-auto inline-block px-4 bg-blue-300" id="left-window">
-        <div id="left-tabs">
+      <div
+        className="w-auto inline-block px-4 bg-blue-300 w-[20vw]"
+        id="left-window"
+      >
+        <div id="left-tabs" className="flex flex-rows">
           <input
-            className="bg-blue-300 px-4"
+            className={`px-4 flex-1 ${showAdjust ? "bg-blue-300" : "bg-blue-500"} `}
             type="button"
             onClick={() => setShowAdjust(true)}
             value="Adjust"
           />
           <input
+            className={`px-4 flex-1 ${showAdjust ? "bg-blue-500" : "bg-blue-300"} `}
             type="button"
             onClick={() => setShowAdjust(false)}
             value="Data"
@@ -116,10 +120,12 @@ export default function Homer() {
           className={`right-tab ${showAdjust ? "hidden" : "visible"}`}
           id="data-tab"
         >
+          <p className="underline text-lg">Upload DICOM</p>
           <UploadButton
             sliceCount={sliceCount}
             updateSliceCount={updateSliceCount}
           />
+          <p className="underline text-lg">Import Labels</p>
           <ImportButton />
           <input
             type="button"
