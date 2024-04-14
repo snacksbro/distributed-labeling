@@ -130,6 +130,7 @@ export default function Homer() {
           <input
             type="button"
             value="Export"
+            class="bg-green-500 my-3 hover:bg-green-700 text-white px-5 border border-green-700 rounded text-xl"
             onClick={() => setShowExport("visible")}
           />
           <ExportWindow
