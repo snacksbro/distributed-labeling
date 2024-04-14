@@ -88,7 +88,7 @@ export default function LabelWindow({
   };
 
   return (
-    <div className="flex flex-col justify-between bg-blue-300 px-4 w-[25vw]">
+    <div className="flex flex-col justify-between bg-blue-300 px-4 w-[25vw] border-blue-800 border-4">
       <div style={{ visibility: showForm == "visible" ? "hidden" : "visible" }}>
         <p className="underline text-lg">Labels</p>
         <ul>

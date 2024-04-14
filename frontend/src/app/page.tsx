@@ -75,7 +75,7 @@ export default function Homer() {
   return (
     <div id="main-container">
       <div
-        className="w-auto inline-block px-4 bg-blue-300 w-[20vw]"
+        className="w-auto inline-block px-4 bg-blue-300 w-[20vw] border-blue-800 border-4"
         id="left-window"
       >
         <div id="left-tabs" className="flex flex-rows">
