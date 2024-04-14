@@ -8,6 +8,7 @@ import Viewer from "./components/viewer";
 import Keybinds from "./components/keybinds";
 import ExportWindow from "./components/export_window";
 import axios from "axios";
+import "./components/styles/page.css";
 
 export default function Homer() {
   // Sliders
@@ -33,6 +34,9 @@ export default function Homer() {
 
   // Export
   const [showExport, setShowExport] = useState("hidden");
+
+  // Tab
+  const [showAdjust, setShowAdjust] = useState(true);
 
   const updateLabels = (value) => {
     setLabels(value);
@@ -69,34 +73,71 @@ export default function Homer() {
   };
 
   return (
-    <div>
-      <SliderWindow
-        brightness={brightness}
-        setBrightness={setBrightness}
-        contrast={contrast}
-        setContrast={setContrast}
-        minThreshold={minThreshold}
-        setMinThreshold={setMinThreshold}
-        maxThreshold={maxThreshold}
-        setMaxThreshold={setMaxThreshold}
-        grayscale={grayscale}
-        setGrayscale={setGrayscale}
-        inversion={inversion}
-        setInversion={setInversion}
-      />
-      <UploadButton
-        sliceCount={sliceCount}
-        updateSliceCount={updateSliceCount}
-      />
-      <ImportButton />
-      <Controls
-        sliceCount={sliceCount}
-        imageIndex={imageIndex}
-        updateImageIndex={updateImageIndex}
-      />
-      <div className="bg-sky-900">
-        <p>Hello vorld!</p>
-        <p>You are brightness is {brightness}</p>
+    <div id="main-container">
+      <div
+        className="w-auto inline-block px-4 bg-blue-300 w-[20vw] border-blue-800 border-4"
+        id="left-window"
+      >
+        <div id="left-tabs" className="flex flex-rows">
+          <input
+            className={`px-4 flex-1 ${showAdjust ? "bg-blue-300" : "bg-blue-500 hover:bg-blue-400"} `}
+            type="button"
+            onClick={() => setShowAdjust(true)}
+            value="Adjust"
+          />
+          <input
+            className={`px-4 flex-1 ${showAdjust ? "bg-blue-500 hover:bg-blue-400" : "bg-blue-300"} `}
+            type="button"
+            onClick={() => setShowAdjust(false)}
+            value="Data"
+          />
+        </div>
+        <div
+          className={`left-tab ${showAdjust ? "visible" : "hidden"}`}
+          id="image-tab"
+        >
+          <SliderWindow
+            brightness={brightness}
+            setBrightness={setBrightness}
+            contrast={contrast}
+            setContrast={setContrast}
+            minThreshold={minThreshold}
+            setMinThreshold={setMinThreshold}
+            maxThreshold={maxThreshold}
+            setMaxThreshold={setMaxThreshold}
+            grayscale={grayscale}
+            setGrayscale={setGrayscale}
+            inversion={inversion}
+            setInversion={setInversion}
+          />
+          <Controls
+            sliceCount={sliceCount}
+            imageIndex={imageIndex}
+            updateImageIndex={updateImageIndex}
+          />
+        </div>
+        <div
+          className={`right-tab ${showAdjust ? "hidden" : "visible"}`}
+          id="data-tab"
+        >
+          <p className="underline text-lg">Upload DICOM</p>
+          <UploadButton
+            sliceCount={sliceCount}
+            updateSliceCount={updateSliceCount}
+          />
+          <p className="underline text-lg">Import Labels</p>
+          <ImportButton />
+          <input
+            type="button"
+            value="Export"
+            class="bg-green-500 my-3 hover:bg-green-700 text-white px-5 border border-green-700 rounded text-xl"
+            onClick={() => setShowExport("visible")}
+          />
+          <ExportWindow
+            windowVisibility={showExport}
+            setWindowVisibility={setShowExport}
+          />
+        </div>
       </div>
       <Viewer
         currentLabel={currentLabel}
@@ -105,15 +146,6 @@ export default function Homer() {
         polygonPoints={polygonPoints}
         updateLabels={updateLabels}
         setCurrentLabel={setCurrentLabel}
-      />
-      <input
-        type="button"
-        value="Export"
-        onClick={() => setShowExport("visible")}
-      />
-      <ExportWindow
-        windowVisibility={showExport}
-        setWindowVisibility={setShowExport}
       />
       <Keybinds
         moveLabel={moveLabel}

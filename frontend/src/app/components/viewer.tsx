@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import axios from "axios";
 import LabelWindow from "./label_window";
+import "./styles/viewer.css";
 
 export default function Viewer({
   labels,
@@ -48,6 +49,7 @@ export default function Viewer({
     const handleClick = (event) => {
       // This is taken to get the relative location of client clicks
       const canvasRect = canvas.getBoundingClientRect();
+      canvas = canvasRef.current;
 
       if (polygonPoints.length <= squareIndex) {
         polygonPoints[squareIndex] = {
@@ -56,9 +58,10 @@ export default function Viewer({
         };
       }
 
+      // This takes into account both the canvas offset, as well as the scale factor
       polygonPoints[squareIndex].points.push([
-        event.x - canvasRect.left,
-        event.y - canvasRect.top,
+        (event.x - canvasRect.left) / (canvasRect.width / canvas.width),
+        (event.y - canvasRect.top) / (canvasRect.height / canvas.height),
       ]);
 
       // If the shape is "complete" i.e. has 2 points
@@ -75,9 +78,13 @@ export default function Viewer({
       console.log("Right click detected!");
       event.preventDefault();
 
+      // TODO: Make a function to calculate x/y (DRY)
       const canvasRect = canvas.getBoundingClientRect();
-      const mouseX = event.x - canvasRect.left;
-      const mouseY = event.y - canvasRect.top;
+      canvas = canvasRef.current;
+      const mouseX =
+        (event.x - canvasRect.left) / (canvasRect.width / canvas.width);
+      const mouseY =
+        (event.y - canvasRect.top) / (canvasRect.height / canvas.height);
 
       console.log("Polygon len is " + polygonPoints.length);
       console.log(`Event data is ${mouseX} ${mouseY}`);
@@ -170,7 +177,7 @@ export default function Viewer({
   };
 
   return (
-    <div>
+    <div id="viewer-container">
       <canvas ref={canvasRef} />
       <LabelWindow
         imageIndex={imageIndex}
