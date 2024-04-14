@@ -35,6 +35,9 @@ export default function Homer() {
   // Export
   const [showExport, setShowExport] = useState("hidden");
 
+  // Tab
+  const [showAdjust, setShowAdjust] = useState(true);
+
   const updateLabels = (value) => {
     setLabels(value);
   };
@@ -73,10 +76,22 @@ export default function Homer() {
     <div id="main-container">
       <div className="w-auto inline-block px-4 bg-blue-300" id="left-window">
         <div id="left-tabs">
-          <input className="bg-blue-300 px-4" type="button" value="Adjust" />
-          <input type="button" value="Data" />
+          <input
+            className="bg-blue-300 px-4"
+            type="button"
+            onClick={() => setShowAdjust(true)}
+            value="Adjust"
+          />
+          <input
+            type="button"
+            onClick={() => setShowAdjust(false)}
+            value="Data"
+          />
         </div>
-        <div className="left-tab" id="image-tab">
+        <div
+          className={`left-tab ${showAdjust ? "visible" : "hidden"}`}
+          id="image-tab"
+        >
           <SliderWindow
             brightness={brightness}
             setBrightness={setBrightness}
@@ -97,7 +112,10 @@ export default function Homer() {
             updateImageIndex={updateImageIndex}
           />
         </div>
-        <div className="right-tab" id="data-tab">
+        <div
+          className={`right-tab ${showAdjust ? "hidden" : "visible"}`}
+          id="data-tab"
+        >
           <UploadButton
             sliceCount={sliceCount}
             updateSliceCount={updateSliceCount}
