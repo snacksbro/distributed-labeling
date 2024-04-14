@@ -44,7 +44,7 @@ export default function SliderWindow({
         onChange={(e) => setContrast(e.target.value)}
       />
       <input
-        className="slider-input"
+        className="slider-input border rounded"
         id="contrast-input"
         onChange={(e) => setContrast(e.target.value)}
         value={contrast}
@@ -62,7 +62,7 @@ export default function SliderWindow({
         max="100"
       />
       <input
-        className="slider-input"
+        className="slider-input border rounded"
         id="brightness-input"
         onChange={(e) => setBrightness(e.target.value)}
         value={brightness}
@@ -82,7 +82,7 @@ export default function SliderWindow({
           max="100"
         />
         <input
-          className="slider-input"
+          className="slider-input border rounded"
           id="threshold-min-input"
           onChange={handleMinThresholdUpdate}
           value={minThreshold}
@@ -100,7 +100,7 @@ export default function SliderWindow({
           max="100"
         />
         <input
-          className="slider-input"
+          className="slider-input border rounded"
           id="threshold-max-input"
           onChange={handleMaxThresholdUpdate}
           value={maxThreshold}
@@ -114,6 +114,7 @@ export default function SliderWindow({
           type="checkbox"
           checked={grayscale}
           onChange={() => setGrayscale(!grayscale)}
+          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
         />
         <br />
         <label htmlFor="inversion">Inversion: </label>
@@ -122,6 +123,7 @@ export default function SliderWindow({
           type="checkbox"
           checked={inversion}
           onChange={() => setInversion(!inversion)}
+          className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
         />
       </div>
     </div>
